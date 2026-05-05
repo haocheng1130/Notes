@@ -1,0 +1,151 @@
+\chapter{Binomial Coefficients}
+
+\section{Combinatorial Proof}
+
+\textbf{Set-up}
+\begin{itemize}
+    \item Given an equation to prove. $LHS=RHS$
+    \item Come up with some set of objects one of the sides (say $LHS$) is equivalent to in size.
+    \item Come up with an alternative way to count the collection of objects that corresponds to the other side($RHS$).
+    \item Conclude that you have counted the same set in two different ways to deduce $LHS=RHS$
+\end{itemize}
+Basically, it is proof by story telling.
+
+\begin{theorem}
+    $\forall n \in \N. 2^n=\sum_{k=0}^{n}{n \choose k}$
+\end{theorem}
+\begin{proof}
+(The first combinatorial proof)
+    \begin{itemize}
+        \item Consider the collection of length $n$ binary strings. There are $2^n$ many such strings.
+        \item Note, we can seperate strings in accordance with how many 1's the have. For $k \in \{0, \cdots ,n\}$, there are exactly ${n \choose k}$ many strings of length $n$ with k 1's. Therefore, there are $\sum_{k=0}^{n}{n \choose k}$ many binary strings.
+        \item Thus, $2^n=\sum_{k=0}^{n}{n \choose k}$ as desired.
+    \end{itemize}
+\end{proof}
+\begin{proof}
+(The second combinatorial proof)
+\begin{itemize}
+    \item Suppose I am having a party and can invite any (or none) of my $n$ friends. There are $2^n$ many ways to do this, as there are $2^n$ many bsubsets from a collection of $n$ people.(for each people, choose him or not)
+    \item Note, I can invite any number from $k=0, \cdots ,n$ of my friends. There are $2^n=\sum_{k=0}^{n}{n \choose k}$ many ways to choose k friends from n. Therefore, there are $\sum_{k=0}^{n}{n \choose k}$ many ways.
+    \item Thus, $2^n=\sum_{k=0}^{n}{n \choose k}$ as desired.
+\end{itemize}
+\end{proof}
+
+\section{Stars and Bars}
+\begin{theorem}
+    Let n, k be positive integers. There are ${n+(k-1) \choose k-1}$ integer solutions to the equatioin 
+    $x_1 + \cdots + x_k=n$ with constraint $x_i \geq 0$ for all i.
+\end{theorem}
+\begin{proof}
+    (This is not rigorous, I can only give you some intuition)\\
+    Suppose there are n objects (represented by stars) to be placed into k bins. 
+    The bins are distinguishable (say they are numbered 1 to k) but the n stars are not (so configurations are only distinguished by the number of stars present in each bin). 
+    A configuration is thus represented by a k-tuple of non-negative integers, as in the statement of the theorem. Start by placing the stars in a line,
+    we can place multiple bars between stars, before the first star and after the last star. 
+    Since that any arrangement of stars and bars consists of a total of $n + k - 1$ objects, n of which are stars and $k-1$ of which are bars.
+    We only need to choose $k - 1$ of the $n + k - 1$ positions to be bars (or, equivalently, choose n of the positions to be stars).
+    Thus, there are ${n+(k-1) \choose k-1}$ arrangements.
+\end{proof}
+
+\begin{corollary}
+    Let n, k be positive integers. There are ${n-1 \choose k-1}$ integer solutions to the equatioin 
+    $x_1 + \cdots + x_k=n$ with constraint $x_i > 0$ for all i.
+\end{corollary}
+\begin{proof}
+    The question is equivalent to find the number of solutions of $y_1 + \cdots + y_k=n-k$ with constraint $y_i \geq 0$ for all i.
+    Then use the theorem above finish the proof.
+\end{proof}
+
+\section{Binomial Theorem}
+
+\begin{theorem}
+    $\forall x \in \R. (1+x)^n=\sum_{k=0}^{n}{n \choose k}x^k$
+\end{theorem}
+
+\begin{proof}
+    We know that the function $f(x)=(1+x)^n$ is a polynomial, 
+    so $f(x)=\sum_{k=0}^{n}c_kx^k$ for some $c_k \in \Z$. 
+    Consider the derivative of $f(x)=(1+x)^n$, then the i-th derivative is $$f^{(i)}(x)=P(n,i)(1+x)^{n-i}$$ 
+    Computed another way, we have $$f^{(i)}(x)=\sum_{k=1}^{n}c_kP(k,i)x^{k-i}$$
+    Evaluating $f^{(i)}(0)$, we have $P(n,i)=c_iP(i,i)$. 
+    Hence we get $$c_i=\frac{P(n,i)}{P(i,i)}=\frac{n!}{(n-i)!}\frac{(i-i)!}{i!}={n \choose i}$$ as desired.
+\end{proof}
+
+\begin{theorem}[Full Binomial Theorem]
+    $\forall x \in \R. (x+y)^n=\sum_{k=0}^{n}{n \choose k}x^ky^{n-k}$
+\end{theorem}
+\begin{proof}
+    It is true when $y=0$, so suppose $y \neq 0$. 
+    Note $(x+y)^n=y^n(1+\frac{x}{y})^n$ ,so set $z=\frac{x}{y}$. 
+    finally we have 
+    \begin{equation}
+        \begin{split}
+            y^n(1+\frac{x}{y}) &= y^n \sum_{k=0}^{n}{n \choose k}z^k\\
+            &= y^n \sum_{k=0}^{n}{n \choose k}x^ky^{-k}\\
+            &= \sum_{k=0}^n{n \choose k}x^ky^{n-k}
+        \end{split}
+    \end{equation}
+\end{proof}
+
+\section{Lattice and Catalan number}
+
+\begin{definition}
+    A \textbf{lattice} is a set of the form $[n+1] \times [m+1]$. 
+    We call a lattice of this form \textbf{an n by m lattice}. 
+    The point $(0,0) \in [n+1]\times [m+1]$ is called the  \textbf{origin}.
+\end{definition}
+
+\begin{definition}
+    A \textbf{lattice path} is a swquence $\{(a_0,b_0),(a_1,b_1), \cdots ,(a_{n+m},b_{n+m})\}$ 
+    that satisfies the property that:\\
+    \begin{itemize}
+        \item $(a_0,b_0)=(0,0)$
+        \item $(a_{n+m},b_{n+m})=(n,m)$
+        \item $(m_{i+1},n_{i+1})=(m_{i+1},n_i)$ or $(m_{i+1},n_{i+1})=(m_{i},n_{i+1})$
+    \end{itemize}
+\end{definition}
+
+\begin{theorem}
+    Given an n by m lattice, there are ${n+m \choose n}$ many ways to walk from the origin to $(n,m)$.
+\end{theorem}
+\begin{proof}\
+    \begin{itemize}
+        \item Nottice that a lattice path is codified by an length $n+m$ sequence from $\{U,R\}$ with n many R's(U means up and R means right)
+        \item To see this, notice the following reversible process to get a walk from a sequence and vice versa.
+        \item Given a lattice path $P=\{(a_o.b_0),(a_1,b_1), \cdots ,(a_{n+m},b_{n+m})\}$, assign to it a sequence $s:[n+m] \rightarrow \{U,R\}$ where $s(i)=U$ iff $b_{i+1}=b_i+1$.
+        \item To reverse this, given a sequence $s:[n+m] \rightarrow \{U,R\}$, assign to it a lattice path $P=\{(a_o.b_0),(a_1,b_1), \cdots ,(a_{n+m},b_{n+m})\}$ where $b_{i+1}=b_i+1$ when $s(i)=U$ or alternatively, $a_{i+1}=a_i+1$ when $s(i)=R$
+    \end{itemize}
+\end{proof}
+
+\begin{definition}
+    We define the \textbf{Catalan number} $C(n)$ to be the number of lattice paths from $(0,0)$ to $(n,n)$ that stay below the line $y=x$.
+\end{definition}
+
+\begin{theorem}
+    The catalan number can be explicitly computed,
+    $$C(n)=\frac{1}{n+1}{2n \choose n}$$
+\end{theorem}
+\begin{proof}
+(proof1, Total - Above Diagonal)
+\begin{itemize}
+    \item Total= ${2n \choose n}= \frac{(2n)!}{n!n!}$
+    \item Above= ${2n \choose n+1}= \frac{(2n)!}{(n+1)!(n-1)!}$ (this part is very tricky, I will not give details)
+    \item $C(n)={2n \choose n}-{2n \choose n+1}=\frac{1}{n+1}{2n \choose n}$
+\end{itemize}
+\end{proof}
+\begin{proof}
+(proof2, Find the recurrence relation)\\
+Let $k \in \{1, \cdots ,n\}$ be arbitrary, consider the spot $(k,k)$.\\
+Let $S_k$ denotes the set of paths which first intersect the line $y=x$ at point $(k,k)$.\\
+For $k=0$ the only path is stay at the origin, hence $c_0=|S_0|=1$.\\
+For $k \in \{1, \cdots ,n\}$, can check that $|S_k|=c_{k-1} \cdot c_{n+1-k}$\\
+Since $\{S_0, \cdots ,S_k\}$ forms a partition of $S_{n+1}$, hence we get the following recurrence
+\begin{equation}
+    \begin{cases}
+        c_0=1\\
+        c_{n+1}=\sum_{i=0}^{n}c_ic_{n-i}
+    \end{cases}
+\end{equation}
+We can check the example of \ref{cnr} to finish the proof.
+\end{proof}
+\noindent Example: How many ways can we parenthesize the string abcdef?

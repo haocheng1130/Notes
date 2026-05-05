@@ -1,0 +1,535 @@
+\chapter{The Method of Characteristics}
+
+\section{Derivation of the characteristic equations}
+
+Please review how to use the method of characteristics to solve first-order linear PDEs up to first-order quasi-linear PDEs in MAT351.
+We now start from the nonlinear equation which is the most general case.
+Consider the boundary value problem
+$$
+\begin{cases}
+F(Du,u,x)=0 & \text{in } U,\\
+u=g & \text{on } \Gamma\subset \partial U,
+\end{cases}
+$$
+where $U$ is open in $\mathbb{R}^n$.
+The goal is to formulate an equivalent system of ODEs.
+
+\subsection*{Setup}
+Try to follow paths
+$$
+x(s)=\bigl(x^1(s),\ldots,x^n(s)\bigr), \qquad s\in I\subset \mathbb{R},
+$$
+so that we can follow the solution along the curve
+$
+s\mapsto x(s),
+$
+starting with initial point
+$
+x_0=x(0)\in \Gamma.
+$
+Assume $u$ is a $C^2$ solution to the PDE. Define
+$$
+z(s):=u(x(s)),
+$$
+and
+$$
+p(s):=Du(x(s))=\nabla u(x(s)).
+$$
+\begin{definition}
+    The characteristic equations are defined as
+    $$
+    \begin{cases}
+    \dot{p}(s)
+    =
+    -D_xF(p(s),z(s),x(s))
+    -
+    D_zF(p(s),z(s),x(s))p(s),
+    \\[0.5em]
+    \dot{z}(s)
+    =
+    D_pF(p(s),z(s),x(s))\cdot p(s),
+    \\[0.5em]
+    \dot{x}(s)
+    =
+    D_pF(p(s),z(s),x(s)).
+    \end{cases}
+    $$
+\end{definition}
+
+\begin{remark}
+The three equations have the following meanings:
+\begin{itemize}
+    \item The equation for $\dot{x}$ chooses the curve $x(s)$ to move in the desired characteristic direction.
+    \item The equation for $\dot{z}$ describes how $u(x(s))$ evolves with respect to the new time variable $s$.
+    \item The equation for $\dot{p}$ comes from differentiating the PDE with respect to $x$. Only needed when the PDE is fully nonlinear.
+\end{itemize}
+\end{remark}
+
+\subsection*{Derivation}
+Start from the PDE
+$
+F(Du,u,x)=0.
+$
+Differentiate the PDE with respect to $x^i$. We denote the components of $F$ by
+$
+F=F(p,z,x).
+$
+Then
+$$
+\sum_{j=1}^n
+\frac{\partial F}{\partial p^j}
+\frac{\partial p^j}{\partial x^i}
++
+\frac{\partial F}{\partial z}
+\frac{\partial z}{\partial x^i}
++
+\frac{\partial F}{\partial x^i}
+=0.
+$$
+Equivalently,
+\begin{equation}
+\sum_{j=1}^n
+F_{p^j}(Du,u,x)u_{x^i x^j}
++
+F_z(Du,u,x)u_{x^i}
++
+F_{x^i}(Du,u,x)
+=0.
+\tag{*}
+\end{equation}
+Now compute
+$$
+\dot{p}^i(s)
+=
+\sum_{j=1}^n
+\frac{\partial p^i}{\partial x^j}
+\frac{\partial x^j}{\partial s}.
+$$
+we get
+\begin{equation}
+\dot{p}^i(s)
+=
+\sum_{j=1}^n
+u_{x^i x^j}(x(s))\dot{x}^j(s).
+\tag{**}
+\end{equation}
+We want to match
+$$
+\sum_{j=1}^n
+F_{p^j}(Du,u,x)u_{x^i x^j}
+\text{ with }
+\sum_{j=1}^n
+u_{x^i x^j}(x(s))\dot{x}^j(s).
+$$
+So if we set
+$
+\dot{x}^j(s)=F_{p^j}(Du,u,x),
+$
+we have really nice structure. Intuitively, we choose the curve $x(s)$ to move in the direction
+$
+D_pF=F_p=(F_{p^1},\ldots,F_{p^n}).
+$
+Then equation $(**)$ becomes
+$$
+\dot{p}^i(s)
+=
+\sum_{j=1}^n
+u_{x^i x^j}(x(s))F_{p^j}(Du,u,x).
+$$
+Plugging this into $(*)$, we get
+$$
+\dot{p}^i(s)
++
+F_z(Du,u,x)u_{x^i}
++
+F_{x^i}(Du,u,x)
+=0.
+$$
+
+
+
+\section*{Example: First-order linear PDE}
+
+\begin{claim}
+For a first-order homogeneous linear PDE
+$$
+F(Du,u,x)=\langle b(x),Du(x)\rangle+c(x)u(x)=0,
+$$
+we can solve it by considering the characteristic equations
+$$
+\begin{cases}
+\dot{x}(s)=b(x(s)),\\
+\dot{z}(s)=-c(x(s))z(s).
+\end{cases}
+$$
+\end{claim}
+
+\begin{proof}
+The function $F$ can be expressed as
+$$
+F(p,z,x)=b(x)\cdot p+c(x)z=0.
+$$
+Now consider the characteristic equations
+$$
+\begin{cases}
+\dot{p}(s)
+=
+-D_xF(p(s),z(s),x(s))
+-
+D_zF(p(s),z(s),x(s))p(s),\\
+\dot{z}(s)
+=
+D_pF(p(s),z(s),x(s))\cdot p(s),\\
+\dot{x}(s)
+=
+D_pF(p(s),z(s),x(s)).
+\end{cases}
+$$
+Starting from the equation for $\dot{x}$, since
+$
+D_pF=b,
+$
+we get
+$
+\dot{x}(s)=b(x(s)).
+$
+Next,
+$
+\dot{z}(s)=b(x(s))\cdot p(s).
+$
+Using the PDE
+$
+b(x)\cdot p+c(x)z=0,
+$
+we obtain
+$
+\dot{z}(s)=-c(x(s))z(s).
+$
+Notice that the equation for $\dot{p}$ is not needed here.
+\end{proof}
+
+\section{Mathematical technique: flattening the boundary}
+
+\begin{definition}
+Let $U\subset \mathbb{R}^n$ be open and bounded.
+We say the boundary $\partial U$ is $C^k$ if, for every $x_0\in \partial U$, there exist $r>0$ and a $C^k$ change of coordinates
+$$
+\Phi:U\cap B(x_0,r)
+\to
+\left\{
+x\in B(x_0,r): x^n>\sigma(x^1,\ldots,x^{n-1})
+\right\}.
+$$
+Likewise, we say $\partial U$ is $C^\infty$ if this holds for $k=1,2,\ldots$.
+We say $\partial U$ is analytic if the mapping $\sigma$ is analytic.
+\end{definition}
+
+\begin{definition}[Flattening the boundary]
+The change of coordinates near a point of $\partial U$ is used to flatten out the boundary.
+Fix $x_0\in \partial U$, and choose $r,\sigma$ as above. Define
+$
+y=\Phi(x)
+$
+by
+$$
+\begin{cases}
+y^1=x^1,\\
+\vdots\\
+y^{n-1}=x^{n-1},\\
+y^n=x^n-\sigma(x^1,\ldots,x^{n-1}).
+\end{cases}
+$$
+Similarly, set the inverse
+$
+x=\Psi(y)
+$
+by
+$$
+\begin{cases}
+x^1=y^1,\\
+\vdots\\
+x^{n-1}=y^{n-1},\\
+x^n=y^n+\sigma(y^1,\ldots,y^{n-1}).
+\end{cases}
+$$
+Then
+$$
+\Phi=\Psi^{-1},
+\qquad
+\det D\Phi=\det D\Psi=1.
+$$
+\end{definition}
+
+\begin{claim}
+After flattening the boundary, rewriting the original PDE for $u(x)$ as a new PDE for $v(y)$ has the form
+$$
+\begin{cases}
+G(Dv,v,y)=0 & \text{in } V,\\
+v=h & \text{on } \Delta.
+\end{cases}
+$$
+\end{claim}
+
+\begin{proof}
+Suppose $u$ is a $C^1$ solution of the boundary value problem
+$$
+\begin{cases}
+F(Du,u,x)=0 & \text{in } U,\\
+u=g & \text{on } \Gamma\subset \partial U.
+\end{cases}
+$$
+Rewrite
+$
+V:=\Phi(U),
+$
+and set
+$
+v(y):=u(\Psi(y)).
+$
+Equivalently,
+$
+u(x)=v(\Phi(x)).
+$
+By the chain rule,
+$$
+u_{x^i}(x)
+=
+\sum_{k=1}^n
+v_{y^k}(\Phi(x))\Phi^k_{x^i}(x).
+$$
+In matrix form,
+$$
+D_xu(x)
+=
+D_yv(\Phi(x))D_x\Phi(x)
+=
+\nabla v(\Phi(x))^T D\Phi(x).
+$$
+Thus the PDE written in $y$ variables is
+$$
+F\bigl(Dv(y)D\Phi(\Psi(y)),v(y),\Psi(y)\bigr)=0.
+$$
+This is an expression of the form
+$$
+G(Dv(y),v(y),y)=0
+\qquad \text{in } V.
+$$
+In addition,
+$
+v=h
+\text{ on } \Delta,
+$
+where
+$
+\Delta=\Phi(\Gamma)
+\text{ and }
+h(y):=g(\Psi(y)).
+$
+\end{proof}
+
+\section{Initial data for the characteristic ODE}
+
+If we want to start a characteristic from the boundary point, the starting values cannot be chosen arbitrarily. They must match both the boundary condition and the PDE.
+After straightening the boundary, we may assume that near
+$
+x_0\in \Gamma,
+$
+we have
+$
+\Gamma\subset \{x^n=0\}.
+$
+So locally the boundary is just the flat plane $x^n=0$.
+Then the boundary condition
+$$
+u=g \quad \text{on } \Gamma
+$$
+becomes locally
+$$
+u(x^1,\ldots,x^{n-1},0)
+=
+g(x^1,\ldots,x^{n-1}).
+$$
+In the method of characteristics, one studies curves with unknowns
+$$
+x(s)\in \mathbb{R}^n,
+\qquad
+z(s)\in \mathbb{R},
+\qquad
+p(s)\in \mathbb{R}^n.
+$$
+At time $s=0$, the characteristic starts with
+$$
+x(0)=x_0,\qquad z(0)=z_0,\qquad p(0)=p_0.
+$$
+These are the initial conditions for the characteristic ODE, but not every triple
+$
+(p_0,z_0,x_0)
+$
+is acceptable.
+
+\begin{definition}[Compatibility conditions]
+The following conditions are called the \emph{compatibility conditions}:
+$$
+\begin{cases}
+z_0=g(x_0),\\
+p_0^i=g_{x^i}(x_0), \qquad i=1,\ldots,n-1,\\
+F(p_0,z_0,x_0)=0.
+\end{cases}
+$$
+A triple
+$$
+(p_0,z_0,x_0)\in \mathbb{R}^n\times \mathbb{R}\times \mathbb{R}^n
+$$
+verifying these conditions is called \emph{admissible}.
+\end{definition}
+
+\begin{remark}\
+    \begin{itemize}
+        \item The value $z_0$ is uniquely determined by the boundary condition and our choice of boundary point $x_0$.
+        \item However, a vector $p_0$ satisfying the second and third compatibility conditions may not exist, or may not be unique.
+    \end{itemize}
+\end{remark}
+
+\section{Noncharacteristic boundary condition}
+
+If we have an admissible triple
+$
+(p_0,z_0,x_0),
+$
+can we perturb it?
+For now, assume as above that
+$
+x_0\in \Gamma,
+$
+and that $\Gamma$ near $x_0$ lies in the flat plane
+$
+\{x^n=0\}.
+$
+Set
+$
+y=(y^1,\ldots,y^{n-1},0)\in \Gamma,
+$
+with $y$ close to $x_0$.
+
+We want to solve the characteristic ODE with initial conditions
+$$
+p(0)=q(y),\qquad z(0)=g(y),\qquad x(0)=y.
+$$
+Our task now is to find a function $q(\cdot)$ such that
+$
+q(x_0)=p_0
+$
+and
+$
+(q(y),g(y),y)
+$
+is admissible.
+
+\begin{lemma}[Noncharacteristic boundary conditions]
+There exists a unique solution $q(\cdot)$ to the system
+$$
+\begin{cases}
+q(x_0)=p_0,\\
+q^i(y)=g_{x^i}(y), \qquad i=1,\ldots,n-1,\\
+F(q(y),g(y),y)=0,
+\end{cases}
+$$
+for all $y\in \Gamma$ close to $x_0$, provided that
+$$
+F_{p^n}(p_0,z_0,x_0)\neq 0.
+$$
+\end{lemma}
+
+\begin{remark}\
+    \begin{itemize}
+        \item The condition
+        $
+        F_{p^n}(p_0,z_0,x_0)\neq 0
+        $
+        means that the characteristic curve starting from $x_0$ is not tangent to the flat boundary.
+    \end{itemize}
+
+\end{remark}
+
+\begin{definition}[Noncharacteristic admissible triple]
+In general, if $\Gamma$ is not flat near $x_0$, we say the admissible triple
+$
+(p_0,z_0,x_0)
+$
+is \emph{noncharacteristic} if
+$$
+D_pF(p_0,z_0,x_0)\cdot \nu(x_0)\neq 0,
+$$
+where $\nu(x_0)$ denotes the outward unit normal vector to $\Gamma$ at $x_0$.
+\end{definition}
+\begin{remark}\
+    \begin{itemize}
+        \item In the MAT351 notes, the PDE is more special:
+        $$
+        a(x,y,u)u_x+b(x,y,u)u_y=c(x,y,u).
+        $$
+        Equivalently,
+        $$
+        F(Du,u,x,y)
+        =
+        a(x,y,u)p_1+b(x,y,u)p_2-c(x,y,u)=0,
+        $$
+        where
+        $
+        p_1=u_x,
+        $
+        $
+        p_2=u_y.
+        $
+        Then
+        $
+        F_{p_1}=a,$
+        $
+        F_{p_2}=b.
+        $
+        So the vector
+        $$
+        D_pF=(F_{p_1},F_{p_2})=(a,b)
+        $$
+        is the characteristic direction in the $(x,y)$-plane.
+        
+        For this quasilinear PDE, the characteristic ODE is
+        $$
+        \dot{x}=a(x,y,u),
+        \qquad
+        \dot{y}=b(x,y,u).
+        $$
+        So characteristics move in the direction
+        $
+        (a,b).
+        $
+        Now the boundary curve is parametrized by
+        $
+        \eta(t)=(k(t),l(t)).
+        $
+        Its tangent vector is
+        $
+        \eta'(t)=(\dot{k}(t),\dot{l}(t)).
+        $
+
+        The transversality condition says
+        $$
+        \det
+        \begin{pmatrix}
+        a(k(t),l(t),g(k(t),l(t))) & \dot{k}(t)\\
+        b(k(t),l(t),g(k(t),l(t))) & \dot{l}(t)
+        \end{pmatrix}
+        \neq 0.
+        $$
+        This means the two vectors
+        $
+        (a,b)
+        \text{ and }
+        (\dot{k},\dot{l})
+        $
+        are not parallel.
+        So geometrically, the characteristic direction is not tangent to the boundary.
+        That is exactly what ``noncharacteristic boundary'' means.
+    \end{itemize}
+
+\end{remark}

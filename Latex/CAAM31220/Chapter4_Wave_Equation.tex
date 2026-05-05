@@ -1,0 +1,478 @@
+\chapter{Wave Equation}
+
+
+\section{One-dimensional wave equation}
+
+We consider
+$
+u_{tt}-\Delta u=0,
+$
+and more generally
+$
+u_{tt}-\Delta u=f
+\text{ (inhomogeneous)}.
+$
+
+\begin{definition}
+For
+$
+u:\overline{U}\times [0,\infty)\to \mathbb{R},
+$
+we denote the differential operator
+$$
+\square u := u_{tt}-\Delta u.
+$$
+\end{definition}
+
+\begin{theorem}[Solution of the wave equation when $n=1$]
+Assume
+$
+g\in C^2(\mathbb{R}), \qquad h\in C^1(\mathbb{R}).
+$
+Consider the initial value problem
+$$
+\begin{cases}
+u_{tt}-u_{xx}=0 & \text{in } \mathbb{R}\times (0,\infty),\\
+u=g & \text{on } \mathbb{R}\times \{t=0\},\\
+u_t=h & \text{on } \mathbb{R}\times \{t=0\}.
+\end{cases}
+$$
+Define $u$ by d'Alembert's formula:
+$$
+u(x,t)
+=
+\frac12\bigl[g(x+t)+g(x-t)\bigr]
++
+\frac12\int_{x-t}^{x+t} h(y)\,dy,
+\qquad (x\in \mathbb{R},\ t>0).
+$$
+
+Then
+\begin{enumerate}
+    \item $u\in C^2(\mathbb{R}\times [0,\infty))$,
+    \item $u$ solves the IVP of the wave equation,
+    \item
+    $
+    \lim_{(x,t)\to (x^0,0)} u(x,t)=g(x^0),
+    \quad
+    \lim_{(x,t)\to (x^0,0)} u_t(x,t)=h(x^0).
+    $
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}
+Factor the differential operator:
+$$
+\square
+=
+\partial_t^2-\partial_x^2
+=
+(\partial_t+\partial_x)(\partial_t-\partial_x).
+$$
+So one can solve a coupled system of two first-order equations:
+$$
+\begin{cases}
+(\partial_t-\partial_x)u=v,\\
+(\partial_t+\partial_x)v=0.
+\end{cases}
+$$
+\end{remark}
+
+\section{Higher dimensions: spherical means}
+
+Now move to higher dimensions, first consider $n=3$.
+
+\begin{definition}
+Let $x\in \mathbb{R}^n$, $t>0$, $r>0$.
+We denote
+$$
+U(x,r,t):=\fint_{\partial B(x,r)} u(y,t)\,dS(y).
+$$
+Similarly, define
+$$
+G(x,r):=\fint_{\partial B(x,r)} g(y)\,dS(y),
+$$
+and
+$$
+H(x,r):=\fint_{\partial B(x,r)} h(y)\,dS(y).
+$$
+\end{definition}
+
+\begin{lemma}[Euler--Poisson--Darboux equation]
+Fix $x\in \mathbb{R}^n$, and let $u$ satisfy the IVP for the $n$-dimensional wave equation.
+Then for this fixed $x$, $U$ is a function of $r,t$, and we have
+$$
+U\in C^m(\overline{\mathbb{R}_+}\times [0,\infty))
+$$
+and $U$ satisfies
+$$
+\begin{cases}
+U_{tt}-U_{rr}-\dfrac{n-1}{r}U_r=0 & \text{in } \mathbb{R}_+\times (0,\infty),\\[1em]
+U=G & \text{on } \mathbb{R}_+\times \{t=0\},\\
+U_t=H & \text{on } \mathbb{R}_+\times \{t=0\}.
+\end{cases}
+$$
+\end{lemma}
+
+\begin{lemma}[Reduction when $n=3$]
+For $n=3$, set
+$$
+\tilde{U}=rU, \qquad \tilde{G}=rG, \qquad \tilde{H}=rH.
+$$
+Then $\tilde{U}$ solves
+$$
+\begin{cases}
+\tilde{U}_{tt}-\tilde{U}_{rr}=0 & \text{in } \mathbb{R}_+\times (0,\infty),\\
+\tilde{U}=\tilde{G} & \text{on } \mathbb{R}_+\times \{t=0\},\\
+\tilde{U}_t=\tilde{H} & \text{on } \mathbb{R}_+\times \{t=0\},\\
+\tilde{U}=0 & \text{on } \{r=0\}\times (0,\infty).
+\end{cases}
+$$
+Also, $\tilde{U}$ can be expressed by
+$$
+\tilde{U}(x;r,t)
+=
+\frac12\bigl[\tilde{G}(r+t)-\tilde{G}(t-r)\bigr]
++
+\frac12\int_{-r+t}^{\,r+t}\tilde{H}(y)\,dy.
+$$
+\end{lemma}
+
+\begin{remark}
+This can be solved by the odd reflection method.
+\end{remark}
+
+
+\begin{theorem}[Kirchhoff's formula]
+For the $n=3$ IVP for the wave equation,
+$$
+u(x,t)
+=
+\frac{\partial}{\partial t}
+\left(
+t\fint_{\partial B(x,t)} g\,dS
+\right)
++
+t\fint_{\partial B(x,t)} h\,dS.
+$$
+Equivalently,
+$$
+u(x,t)
+=
+\fint_{\partial B(x,t)}
+\bigl(
+t\,h(y)+g(y)+Dg(y)\cdot (y-x)
+\bigr)\,dS(y).
+$$
+\end{theorem}
+
+
+\begin{remark}
+\begin{enumerate}\
+    \item At $(x,t)$, the solution depends only on $g,h$ evaluated on
+    $
+    \partial B(x,t)\subset \mathbb{R}^3.
+    $
+    \item The same approach cannot go through on $\mathbb{R}^2$.
+    Instead, we will construct solutions on $\mathbb{R}^2$ by first finding an
+    ``$x_3$-free'' solution on $\mathbb{R}^3$ and then restricting to $\mathbb{R}^2$.
+\end{enumerate}
+\end{remark}
+
+
+\begin{theorem}[Poisson formula]
+If $u$ is a smooth solution to
+$$
+\begin{cases}
+u_{tt}-\Delta u=0 & \text{in } \mathbb{R}^2\times (0,\infty),\\
+u|_{t=0}=g & \text{on } \mathbb{R}^2,\\
+u_t|_{t=0}=h & \text{on } \mathbb{R}^2,
+\end{cases}
+$$
+then
+$$
+u(x,t)
+=
+\frac12
+\int_{B(x,t)}
+\frac{t\,g(y)+t^2 h(y)+t\,Dg(y)\cdot (y-x)}
+{\bigl(t^2-|y-x|^2\bigr)^{1/2}}
+\,dy.
+$$
+\end{theorem}
+
+\begin{proof}
+Hadamard's method of descent.
+\end{proof}
+
+\begin{remark}
+These ideas generalize to higher dimensions; see reading.
+\end{remark}
+
+\begin{theorem}[Solution of the nonhomogeneous wave equation]
+Consider the inhomogeneous problem
+$$
+\begin{cases}
+u_{tt}-\Delta u=f, & t>0,\\
+u|_{t=0}=u_t|_{t=0}=0, & t=0.
+\end{cases}
+$$
+Motivated by Duhamel's principle, define $\widetilde{u}=\widetilde{u}(x,t;s)$ to be the solution of
+$$
+\begin{cases}
+\widetilde{u}_{tt}(\cdot;s)-\Delta \widetilde{u}(\cdot;s)=0
+& \text{in } \mathbb{R}^n\times (s,\infty),\\
+\widetilde{u}(\cdot;s)=0
+& \text{on } \mathbb{R}^n\times \{t=s\},\\
+\widetilde{u}_t(\cdot;s)=f(\cdot,s)
+& \text{on } \mathbb{R}^n\times \{t=s\}.
+\end{cases}
+$$
+Set
+$$
+u(x,t):=\int_0^t \widetilde{u}(x,t;s)\,ds.
+$$
+Then
+\begin{enumerate}
+    \item $u\in C^2(\mathbb{R}^n\times [0,\infty))$,
+    \item $u$ is the solution of
+    $
+    u_{tt}-\Delta u=f \text{ in } \mathbb{R}^n\times (0,\infty),
+    $
+    \item
+    $
+    \lim_{(x,t)\to (x^0,0)}u(x,t)=0,
+    \quad
+    \lim_{(x,t)\to (x^0,0)}u_t(x,t)=0.
+    $
+\end{enumerate}
+\end{theorem}
+
+\section{Fourier method}
+
+\begin{definition}[Fourier transform and inverse Fourier transform]
+For $u\in L^1(\mathbb{R}^n)$, $n\ge 1$, define
+$$
+\widehat{u}(\xi)
+=
+\frac{1}{(2\pi)^{n/2}}
+\int_{\mathbb{R}^n}
+e^{-ix\cdot \xi}u(x)\,dx.
+$$
+This is the Fourier transform; denote $\mathcal{F}u=\widehat{u}$.
+Define also
+$$
+\check{u}(x)
+=
+\frac{1}{(2\pi)^{n/2}}
+\int_{\mathbb{R}^n}
+e^{ix\cdot \xi}u(\xi)\,d\xi.
+$$
+This is the inverse Fourier transform; denote $\mathcal{F}^{-1}u=\check{u}$.
+\end{definition}
+
+\begin{theorem}[Plancherel's theorem]
+Assume
+$
+u\in L^1(\mathbb{R}^n)\cap L^2(\mathbb{R}^n).
+$
+Then
+$
+\widehat{u},\check{u}\in L^2(\mathbb{R}^n),
+$
+and
+$
+\|\widehat{u}\|_{L^2(\mathbb{R}^n)}
+=
+\|\check{u}\|_{L^2(\mathbb{R}^n)}
+=
+\|u\|_{L^2(\mathbb{R}^n)}.
+$
+\end{theorem}
+
+\begin{remark}\
+\begin{itemize}
+    \item The Fourier transform preserves the $L^2$ norm.
+    \item This allows one to define the Fourier transform on $L^2$ functions by approximating
+    $
+    u\in L^2
+    $
+    by a sequence
+    $
+    (u_n)\subset L^1\cap L^2.
+    $
+    \item In fact, the Fourier transform can be defined on the Schwartz space.
+\end{itemize}
+\end{remark}
+
+
+
+\begin{theorem}[Properties of the Fourier transform]
+Assume $u,v\in L^1(\mathbb{R}^n)$.
+Then:
+\begin{enumerate}
+    \item
+    $
+    \int_{\mathbb{R}^n} u\,\overline{v}\,dx
+    =
+    \int_{\mathbb{R}^n} \widehat{u}\,\overline{\widehat{v}}\,d\xi.
+    $
+    \item
+    $
+    (D^\alpha u)\,\widehat{\ } = (i\xi)^\alpha \widehat{u}.
+    $
+    \item If $u,v\in L^1\cap L^2$, then
+    $
+    (u*v)\,\widehat{\ } = (2\pi)^{n/2}\widehat{u}\,\widehat{v}.
+    $
+    \item
+    $
+    u=(\widehat{u})^\vee.
+    $
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Solution of the homogeneous wave equation by Fourier transform]
+Consider the homogeneous IBVP
+$$
+\begin{cases}
+u_{tt}-\Delta u=0 & \text{in } \mathbb{R}^n\times (0,\infty),\\
+u|_{t=0}=g & \text{on } \mathbb{R}^n\times \{t=0\},\\
+u_t|_{t=0}=h & \text{on } \mathbb{R}^n\times \{t=0\}.
+\end{cases}
+$$
+Then
+$$
+u(t,x)
+=
+\cos(t|\nabla|)\,g
++
+\frac{\sin(t|\nabla|)}{|\nabla|}\,h,
+$$
+where
+$$
+\cos(t|\nabla|)\,g
+:=
+\bigl(\cos(t|\xi|)\widehat{g}(\xi)\bigr)^\vee,
+$$
+and
+$$
+\frac{\sin(t|\nabla|)}{|\nabla|}\,h
+:=
+\left(
+\frac{\sin(t|\xi|)}{|\xi|}\widehat{h}(\xi)
+\right)^\vee.
+$$
+\end{theorem}
+
+\begin{proof}
+Let us do the Fourier transform in the $x$ variable:
+$$
+u(t,x)\mapsto \widehat{u}(t,\xi).
+$$
+Then
+$$
+\begin{cases}
+\widehat{u}_{tt}+|\xi|^2\widehat{u}=0,\\
+\widehat{u}|_{t=0}=\widehat{g},\\
+\widehat{u}_t|_{t=0}=\widehat{h}.
+\end{cases}
+$$
+For each fixed $\xi$, this leads to an ODE for
+$
+\gamma(t)=\widehat{u}(t,\xi):
+$
+$$
+\begin{cases}
+\ddot{\gamma}+|\xi|^2\gamma=0,\\
+\gamma(0)=\widehat{g}(\xi),\\ 
+\dot{\gamma}(0)=\widehat{h}(\xi).
+\end{cases}
+$$
+This has solution
+$$
+\gamma(t)
+=
+\widehat{g}(\xi)\cos(t|\xi|)
++
+\widehat{h}(\xi)\frac{\sin(t|\xi|)}{|\xi|}.
+$$
+Hence
+$$
+\widehat{u}(t,\xi)
+=
+\widehat{g}(\xi)\cos(t|\xi|)
++
+\widehat{h}(\xi)\frac{\sin(t|\xi|)}{|\xi|}.
+$$
+Therefore
+$$
+u(t,x)=\bigl(\widehat{u}(t,\xi)\bigr)^\vee.
+$$
+\end{proof}
+
+\begin{theorem}[Solution of the inhomogeneous wave equation by Fourier transform]
+Consider the inhomogeneous IBVP
+$$
+\begin{cases}
+u_{tt}-\Delta u=f & \text{on } \mathbb{R}^n\times (0,\infty),\\
+u|_{t=0}=g,\qquad u_t|_{t=0}=h
+& \text{in } \mathbb{R}^n\times \{t=0\}.
+\end{cases}
+$$
+Then the problem is solved by
+$$
+u(t,x)
+=
+\cos(t|\nabla|)\,g
++
+\frac{\sin(t|\nabla|)}{|\nabla|}\,h
++
+\int_0^t
+\frac{\sin((t-s)|\nabla|)}{|\nabla|}f(s)\,ds.
+$$
+\end{theorem}
+
+\section{Energy method: uniqueness and finite propagation speed}
+
+\begin{theorem}[Uniqueness for the wave equation]
+Let $U\subset \mathbb{R}^n$ be bounded and open, with smooth boundary $\partial U$.
+Consider the following IBVP:
+$$
+\begin{cases}
+u_{tt}-\Delta u=f & \text{in } U_T,\\
+u=g & \text{on } \Gamma_T,\\
+u_t=h & \text{on } U\times \{t=0\}.
+\end{cases}
+$$
+Then there exists at most one solution
+$
+u\in C^2(\overline{U_T}).
+$
+\end{theorem}
+
+\begin{theorem}[Finite propagation speed]
+Suppose
+$
+u\in C^2(\mathbb{R}^n)
+$
+solves
+$$
+\begin{cases}
+u_{tt}-\Delta u=0 & \text{in } \mathbb{R}^n\times (0,\infty),\\
+u(x,0)=u_t(x,0)=0 & \text{on } B(x_0,t_0)\times \{t=0\}.
+\end{cases}
+$$
+Then
+$
+u\equiv 0
+$
+within the cone
+$$
+K(x_0,t_0)
+=
+\left\{
+(x,t): 0\le t\le t_0,\ |x-x_0|\le t_0-t
+\right\}.
+$$
+\end{theorem}

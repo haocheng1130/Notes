@@ -1,0 +1,780 @@
+\chapter{Mathematical Preliminaries: Function Spaces}
+
+\section{Hölder Spaces}
+
+\begin{definition}
+Let $U\subset \mathbb{R}^n$ be open, let $0<\gamma\le 1$, and let
+$
+u:U\to \mathbb{R}.
+$
+Suppose $u$ is bounded and continuous. We define
+$$
+\|u\|_{C(\overline{U})}
+:=
+\sup_{x\in U}|u(x)|.
+$$
+\end{definition}
+
+\begin{definition}[Hölder continuity]
+We say that $u$ is \emph{Hölder continuous with exponent $\gamma$} if there exists a constant $C>0$ such that
+$$
+|u(x)-u(y)|
+\le
+C|x-y|^\gamma
+$$
+for all $x,y\in U$.
+\end{definition}
+\begin{remark}\
+    \begin{itemize}
+        \item Lipschitz continuity is exactly Hölder continuity with exponent is 1.
+    \end{itemize}
+\end{remark}
+
+\begin{definition}[Hölder seminorm and Hölder norm]
+The $\gamma$-th Hölder seminorm of $u$ is defined by
+$$
+[u]_{C^{0,\gamma}(\overline{U})}
+:=
+\sup_{\substack{x,y\in U\\ x\neq y}}
+\left\{
+\frac{|u(x)-u(y)|}{|x-y|^\gamma}
+\right\}.
+$$
+
+The $\gamma$-th Hölder norm is defined by
+$$
+\|u\|_{C^{0,\gamma}(\overline{U})}
+:=
+\|u\|_{C(\overline{U})}
++
+[u]_{C^{0,\gamma}(\overline{U})}.
+$$
+\end{definition}
+
+\begin{definition}[Hölder spaces]
+Let $k\in \mathbb{N}$ and $0<\gamma\le 1$. The Hölder space is defined as
+$$
+C^{k,\gamma}(\overline{U})
+:=
+\left\{
+u\in C^k(\overline{U}):
+\|u\|_{C^{k,\gamma}(\overline{U})}<\infty
+\right\}.
+$$
+The norm is
+$$
+\|u\|_{C^{k,\gamma}(\overline{U})}
+:=
+\sum_{|\alpha|\le k}
+\|D^\alpha u\|_{C(\overline{U})}
++
+\sum_{|\alpha|=k}
+[D^\alpha u]_{C^{0,\gamma}(\overline{U})}.
+$$
+\end{definition}
+
+\begin{theorem}
+The Hölder space
+$
+C^{k,\gamma}(\overline{U})
+$
+is a Banach space.
+\end{theorem}
+
+
+
+
+
+
+
+
+
+
+\section{$L^p$ Spaces}
+
+\begin{definition}
+Let $U\subset \mathbb{R}^n$ be measurable and let
+$
+1\le p\le \infty.
+$
+We define
+$$
+L^p(U)
+:=
+\left\{
+f:U\to \mathbb{R}:
+f \text{ is measurable and } \|f\|_{L^p(U)}<\infty
+\right\}.
+$$
+For $1\le p<\infty$, the $L^p$ norm is
+$$
+\|f\|_{L^p(U)}
+:=
+\left(
+\int_U |f(x)|^p\,dx
+\right)^{1/p}.
+$$
+For $p=\infty$, the $L^\infty$ norm is
+$$
+\|f\|_{L^\infty(U)}
+:=
+\operatorname*{ess\,sup}_{x\in U}|f(x)|.
+$$
+\end{definition}
+
+\begin{theorem}[Minkowski inequality]
+For $1\le p\le \infty$,
+$$
+\|f+g\|_{L^p(U)}
+\le
+\|f\|_{L^p(U)}+\|g\|_{L^p(U)}.
+$$
+\end{theorem}
+
+\begin{theorem}[Hölder inequality]
+Let
+$$
+1\le p,q\le \infty,
+\qquad
+\frac{1}{p}+\frac{1}{q}=1.
+$$
+Then
+$$
+\|fg\|_{L^1(U)}
+\le
+\|f\|_{L^p(U)}\|g\|_{L^q(U)}.
+$$
+\end{theorem}
+
+\begin{theorem}
+The spaces $L^p(U)$ are Banach spaces.
+\end{theorem}
+
+
+
+
+
+
+
+
+
+\section{Weak Derivatives and Sobolev Spaces}
+
+\begin{definition}[Weak derivative]
+Let
+$
+u,v\in L^1_{\mathrm{loc}}(U),
+$
+and let $\alpha$ be a multi-index.
+We say that $v$ is the $\alpha$-th weak partial derivative of $u$ if
+$$
+\int_U u\,D^\alpha \phi\,dx
+=
+(-1)^{|\alpha|}
+\int_U v\,\phi\,dx
+$$
+for all test functions
+$
+\phi\in C_c^\infty(U).
+$
+We denote this by
+$$
+D^\alpha u=v.
+$$
+\end{definition}
+
+\begin{example}
+See Example 1 and Example 2.
+\end{example}
+
+\begin{remark}
+    \textbf{What is the relation between weak derivative and the distributional derivative?}
+    \begin{itemize}
+        \item 
+        Let $\Omega \subset \mathbb{R}^n$ be open and let
+        $u \in L^1_{\mathrm{loc}}(\Omega)$.
+        
+        A locally integrable function $u$ defines a distribution $T_u$ by
+        \[
+        T_u(\varphi)
+        =
+        \int_\Omega u(x)\varphi(x)\,dx,
+        \qquad
+        \varphi \in C_c^\infty(\Omega).
+        \]
+        
+        The \emph{distributional derivative} of $u$ in the $x_i$-direction is
+        the distribution $\partial_i T_u$ defined by
+        \[
+        \langle \partial_i T_u,\varphi\rangle
+        =
+        -\langle T_u,\partial_i\varphi\rangle
+        =
+        -\int_\Omega u(x)\partial_i\varphi(x)\,dx.
+        \]
+
+        
+        Thus the distributional derivative is a functional on test functions.
+        
+        A function $v \in L^1_{\mathrm{loc}}(\Omega)$ is called the
+        \emph{weak derivative} of $u$ in the $x_i$-direction if
+        \[
+        \int_\Omega v(x)\varphi(x)\,dx
+        =
+        -\int_\Omega u(x)\partial_i\varphi(x)\,dx
+        \]
+        for every $\varphi \in C_c^\infty(\Omega)$.
+        In terms of distributions, this condition is
+        \[
+        T_v = \partial_i T_u.
+        \]
+        
+        Therefore,
+        \begin{itemize}
+            \item $
+                v \text{ is the weak derivative of } u
+                \iff
+                T_v \text{ is the distributional derivative of } T_u.
+                $
+            \item $
+                \text{weak derivative}
+                =
+                \text{function representative of the distributional derivative}.
+                $
+        \end{itemize}
+        
+        \item
+        Not every distributional derivative is represented by a function.
+        For example, let
+        \[
+        H(x)
+        =
+        \begin{cases}
+        0, & x<0,\\
+        1, & x>0.
+        \end{cases}
+        \]
+        Then
+        \[
+        H' = \delta_0
+        \]
+        in the sense of distributions, where
+        \[
+        \delta_0(\varphi)=\varphi(0).
+        \]
+        Since $\delta_0$ is not given by integration against a locally integrable
+        function, $H$ has a distributional derivative but no weak derivative as an
+        ordinary function.
+        
+        In summary, Every weak derivative gives a distributional derivative,
+        but not every distributional derivative is a weak derivative.
+
+    \end{itemize}
+\end{remark}
+
+\begin{proposition}[Uniqueness of weak derivatives]
+A weak derivative, if it exists, is uniquely defined up to a set of measure zero.
+\end{proposition}
+
+\begin{definition}[Sobolev spaces]
+Let
+$
+U\subset \mathbb{R}^n
+$
+be open, let
+$
+1\le p<\infty,
+$
+$
+k\in \mathbb{N}\cup\{0\}.
+$
+The Sobolev space
+$
+W^{k,p}(U)
+$
+consists of all locally summable functions
+$
+u:U\to \mathbb{R}
+$
+such that for each multi-index $\alpha$ with
+$
+|\alpha|\le k,
+$
+the weak derivative $D^\alpha u$ exists in the weak sense and belongs to $L^p(U)$.
+\end{definition}
+
+\begin{remark}
+Equivalently,
+$$
+W^{k,p}(U)
+=
+\left\{
+u\in L^p(U):
+D^\alpha u\in L^p(U)
+\text{ for all } |\alpha|\le k
+\right\},
+$$
+where $D^\alpha u$ is the distributional derivative of $u$.
+\end{remark}
+
+\begin{theorem}[Properties of weak derivatives]
+Assume
+$
+u,v\in W^{k,p}(U),
+\text{ with }
+|\alpha|\le k.
+$
+Then:
+\begin{enumerate}
+    \item
+    $
+    D^\alpha u\in W^{k-|\alpha|,p}(U).
+    $
+    Moreover,
+    $$
+    D^\beta(D^\alpha u)
+    =
+    D^\alpha(D^\beta u)
+    =
+    D^{\alpha+\beta}u
+    $$
+    for all multi-indices $\alpha,\beta$ with
+    $
+    |\alpha|+|\beta|\le k.
+    $
+
+    \item For all $\lambda,\mu\in \mathbb{R}$,
+    $$
+    \lambda u+\mu v\in W^{k,p}(U),
+    $$
+    and
+    $$
+    D^\alpha(\lambda u+\mu v)
+    =
+    \lambda D^\alpha u+\mu D^\alpha v.
+    $$
+
+    \item If $V$ is an open subset of $U$, then
+    $
+    u\in W^{k,p}(V).
+    $
+
+    \item If
+    $
+    \zeta\in C_c^\infty(U),
+    $
+    then
+    $
+    \zeta u\in W^{k,p}(U),
+    $
+    and
+    $$
+    D^\alpha(\zeta u)
+    =
+    \sum_{\beta\le \alpha}
+    \binom{\alpha}{\beta}
+    D^\beta \zeta\,
+    D^{\alpha-\beta}u.
+    $$
+    This is the Leibniz formula.
+\end{enumerate}
+\end{theorem}
+
+\begin{remark}\
+    Here
+    $
+    \beta\le \alpha
+    $
+    means that
+    $
+    \beta_i\le \alpha_i
+    $
+    for each
+    $
+    i=1,\ldots,n,
+    $
+    and
+    $$
+    \binom{\alpha}{\beta}
+    :=
+    \frac{\alpha!}{\beta!(\alpha-\beta)!},
+    $$
+    where
+    $
+    \alpha!=(\alpha_1!)\cdots(\alpha_n!).
+    $
+\end{remark}
+
+
+\begin{proof}
+Part (4) follows by induction on $|\alpha|$.
+\end{proof}
+
+\begin{definition}[Sobolev norm]
+    For $1\le p\le \infty$, define the Sobolev norm by
+    $$
+    \|u\|_{W^{k,p}(U)}
+    =
+    \begin{cases}
+    \left(
+    \displaystyle\sum_{|\alpha|\le k}
+    \int_U |D^\alpha u|^p\,dx
+    \right)^{1/p},
+    & 1\le p<\infty,\\[1.2em]
+    \displaystyle\sum_{|\alpha|\le k}
+    \operatorname*{ess\,sup}_{U}|D^\alpha u|,
+    & p=\infty.
+    \end{cases}
+    $$
+    \end{definition}
+    
+    \begin{example}
+    For $k=1$ and $1\le p<\infty$,
+    $$
+    \|u\|_{W^{1,p}(U)}
+    =
+    \left(
+    \int_U |u|^p\,dx
+    +
+    \sum_{i=1}^n
+    \int_U
+    \left|
+    \partial_i u
+    \right|^p
+    \,dx
+    \right)^{1/p}
+    =
+    \left(
+    \|u\|_{L^p(U)}^p
+    +
+    \|Du\|_{L^p(U)}^p
+    \right)^{1/p}.
+    $$
+    \end{example}
+
+    \begin{remark}\
+        \begin{itemize}
+            \item $W^{k,p}(U)$, with $k\ge 1$ and $1\le p\le \infty$, is a Banach space.
+            \item $H^k(U) := W^{k,2}(U)$ is actually a Hilbert space.
+        \end{itemize}
+    \end{remark}
+
+
+    \section{Approximation of Sobolev Functions}
+
+\begin{definition}[Convergence in Sobolev spaces]
+Let
+$
+\{u_m\}_{m=1}^{\infty}\subset W^{k,p}(U),
+$
+$
+u\in W^{k,p}(U).
+$
+We say that $u_m$ converges to $u$ in $W^{k,p}(U)$ if
+$$
+\lim_{m\to\infty}
+\|u_m-u\|_{W^{k,p}(U)}
+=0.
+$$
+We denote this by
+$
+u_m\to u
+$
+in
+$W^{k,p}(U).
+$
+\end{definition}
+
+\begin{definition}[Local Sobolev space]
+The local Sobolev space is defined by
+$$
+W^{k,p}_{\mathrm{loc}}(U)
+:=
+\left\{
+u:
+u\in W^{k,p}(V)
+\text{ for every } V\subset\subset U
+\right\}.
+$$
+We write
+$
+u_m\to u
+$
+in
+$W^{k,p}_{\mathrm{loc}}(U)
+$
+if
+$
+u_m\to u
+$
+in
+$W^{k,p}(V)
+$
+for each
+$
+V\subset\subset U.
+$
+\end{definition}
+
+\begin{theorem}[Local approximation by smooth functions]
+Assume
+$
+u\in W^{k,p}(U)
+$
+for some
+$
+1\le p<\infty.
+$
+Set
+$
+u^\varepsilon:=\eta_\varepsilon*u
+$
+in
+$U_\varepsilon.
+$
+Then:
+\begin{enumerate}
+    \item
+    $
+    u^\varepsilon\in C^\infty(U_\varepsilon)
+    \qquad
+    \forall \varepsilon>0.
+    $
+
+    \item
+    $
+    u^\varepsilon\to u
+    \text{ in } W^{k,p}_{\mathrm{loc}}(U)
+    $
+    as
+    $
+    \varepsilon\to 0.
+    $
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Meyers--Serrin theorem]
+    Let $U\subset \mathbb{R}^n$ be open and bounded. Then
+    $
+    C^\infty(U)\cap W^{k,p}(U)
+    $
+    is dense in
+    $
+    W^{k,p}(U).
+    $
+    \end{theorem}
+    
+    \begin{remark}\
+    \begin{itemize}
+        \item This is the global approximation by smooth functions.
+        \item Equivalently, we can say that there exist functions
+        $
+        u_m\in C^\infty(U)\cap W^{k,p}(U)
+        $
+        such that
+        $
+        u_m\to u
+        \text{ in } W^{k,p}(U).
+        $
+    \end{itemize}
+    \end{remark}
+
+\begin{theorem}[Global approximation by functions smooth up to the boundary]
+    Assume $U$ is bounded and $\partial U$ is $C^1$. Suppose
+    $
+    u\in W^{k,p}(U)
+    $
+    for some
+    $
+    1\le p<\infty.
+    $
+    Then there exist functions
+    $
+    u_m\in C^\infty(\overline{U})
+    $
+    such that
+    $
+    u_m\to u
+    \text{ in } W^{k,p}(U).
+    $
+\end{theorem}
+
+
+\begin{theorem}[Extension theorem]
+    Assume $U$ is bounded and $\partial U$ is $C^1$. Select a bounded open set $V$ such that
+    $
+    U\subset\subset V.
+    $
+    Then there exists a bounded linear operator
+    $$
+    E:W^{1,p}(U)\to W^{1,p}(\mathbb{R}^n)
+    $$
+    such that for each
+    $
+    u\in W^{1,p}(U),
+    $
+    we have:
+    \begin{enumerate}
+        \item
+        $
+        Eu=u \text{ a.e. in } U;
+        $
+    
+        \item
+        $
+        \operatorname{supp}(Eu)\subset V;
+        $
+    
+        \item
+        $
+        \|Eu\|_{W^{1,p}(\mathbb{R}^n)}
+        \le
+        C\|u\|_{W^{1,p}(U)},
+        $
+        where the constant $C$ depends only on $p$, $U$, and $V$.
+    \end{enumerate}
+    \end{theorem}
+    
+    \begin{definition}
+    We call $Eu$ an \emph{extension} of $u$ to $\mathbb{R}^n$.
+    \end{definition}
+
+
+
+
+
+
+
+
+
+\section{Embeddings Between Sobolev Spaces}
+If
+$
+f\in W^{k,p}(U),
+$
+does this automatically imply that $f$ belongs to any other spaces?
+
+\begin{theorem}[Gagliardo--Nirenberg--Sobolev inequality]
+Assume
+$
+1\le p<n.
+$
+Then there exists a constant
+$
+C=C(n,p)
+$
+such that, for all
+$
+u\in C_c^1(\mathbb{R}^n),
+$
+we have
+$$
+\|u\|_{L^q(\mathbb{R}^n)}
+\le
+C\|Du\|_{L^p(\mathbb{R}^n)},
+$$
+where
+$
+\frac{1}{q}+\frac{1}{n}=\frac{1}{p}.
+$
+Equivalently,
+$
+q=\frac{np}{n-p}.
+$
+\end{theorem}
+
+\begin{corollary}[Estimate for $W^{1,p}$, $1\leq p <\infty$]
+Let
+$
+U\subset \mathbb{R}^n
+$
+be bounded and open, and suppose
+$
+\partial U \text{ is } C^1.
+$
+Assume
+$
+1\le p<n
+$
+and
+$
+u\in W^{1,p}(U).
+$
+Then
+$
+u\in L^q(U),
+$
+with the estimate
+$$
+\|u\|_{L^q(U)}
+\le
+C\|u\|_{W^{1,p}(U)}.
+$$
+\end{corollary}
+
+\begin{definition}
+Let
+$
+U\subset \mathbb{R}^n
+$
+be open and bounded. We denote
+$$
+W_0^{1,p}(U)
+:=
+\overline{C_c^\infty(U)}^{\,W^{1,p}(U)}.
+$$
+That is, $W_0^{1,p}(U)$ is the closure of $C_c^\infty(U)$ in the $W^{1,p}(U)$ norm.
+\end{definition}
+
+\begin{corollary}[Estimate for $W_0^{1,p}$, $1\leq p <\infty$]
+Let
+$
+U\subset \mathbb{R}^n
+$
+be bounded and open. Suppose
+$
+u\in W_0^{1,p}(U)
+$
+for some
+$
+1\le p<n.
+$
+Then we have the estimate
+$$
+\|u\|_{L^q(U)}
+\le
+C\|Du\|_{L^p(U)}
+$$
+for each
+$
+q\in \left[1,\frac{np}{n-p}\right],
+$
+where the constant
+$
+C=C(q,p,n,U).
+$
+\end{corollary}
+
+\begin{remark}\
+    \begin{itemize}
+        \item For $n=1$, the restriction $p<n$ is necessary.
+        For example,
+        $$
+        x\mapsto \log\!\left(\log\!\left(1+\frac{1}{|x|}\right)\right)
+        $$
+        belongs to
+        $
+        W^{1,n}(B_1),
+        $
+        but not to
+        $
+        L^\infty(B_1).
+        $
+
+        \item For the case
+        $
+        n>p,
+        $
+        we use Morrey's inequality.
+    \end{itemize}
+\end{remark}

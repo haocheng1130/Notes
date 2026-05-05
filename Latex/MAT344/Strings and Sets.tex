@@ -1,0 +1,96 @@
+\chapter{Strings and Sets}
+
+\section{Set}
+
+\begin{definition}
+    $[n]=\{0,1, \cdots ,n-1\}$, this notation will be helpful in computer science.
+\end{definition}
+e.g. $[1]=\{0\}$, $[3]=\{0,1,2\}$
+
+\section{String}
+
+\begin{definition}
+    A \textbf{string} is an ordered list of objects. (Can have repetition)
+\end{definition}
+e.g. An english word is a string.
+
+\begin{definition}
+    Given a set $X$, 
+    the map $s:[n] \rightarrow X$ is an \textbf{X-string} of length $n$. 
+\end{definition}
+The set $X$ can be viewed as the set of alphabets.
+
+\begin{definition}
+    A \textbf{binary string} is a string of 0's and 1's.
+\end{definition}
+
+\begin{definition}
+    The \textbf{length} of a string is the number of objects in that string.
+\end{definition}
+
+\begin{theorem}
+    Let $X$ be a collection of $n$ distinct objects. There are exactly $n^k$ many X-strings of length $k$.
+\end{theorem}
+
+\begin{proof}
+    Note, an X-string of length k can be thought of as a function $s:[n] \rightarrow $X$. 
+    A string $sS is uniquely determined by its values $s(i)$ for $i \in [k]$. 
+    For each $i$, there are exactly $|X|=n$ possible values for $s(i)$ to be take. 
+    It follows then there are exactly $n \times n \times \cdots \times n = n^k$ X-strings of length $k$. 
+    (This is a \underline{counting argument})
+\end{proof}
+
+\section{Array}
+
+\begin{definition}
+    An \textbf{array} is an X-string $s$, where $s(i) \in X_i \subset X$.
+\end{definition}
+Arrays can be thought of as elements in the cartesian product $X_1 \times \cdots \times X_k$. 
+An array is a string, but with restrctions.
+
+\begin{theorem}
+    There are exactly $|X_1| \times \cdots \times |X_k|$ many arrays in $X_1 \times \cdots \times X_k$.
+\end{theorem}
+
+\section{Permutation}
+
+\begin{definition}
+    Let $X$ be a collection of $n$ distinct objects. A \textbf{permutation} of $X$ is an X-string $s$ where no element is repeated.(i.e. $s$ is injecvtive when viewed as a function.)
+\end{definition}
+e.g. Let $X=\{a,b,c\}$, then a,b,c,ab,ac,,abc are all permutations of $X$.
+
+\begin{definition}
+    Given integers $n$ and $k$ with $n \geq k$. We use $P(n,k)$ to denote the number of permutations of $[n]$ of length $k$.
+\end{definition}
+
+\begin{definition}
+    n factorial: $n!=n \times (n-1) \times \cdots \times 2 \times 1$.
+\end{definition}
+
+\begin{theorem}
+    Given integers $n$ and $k$ with $n \geq k$, $$P(n,k)=\frac{n!}{(n-k)!}$$
+\end{theorem}
+\begin{proof}
+    For a permutation of $[n]$ of length $k$, we have $n$ many choices for $s(0)$, $n-1$ remaining choices for $s(1)$,$\cdots$, $n-(k-1)$ remaining choices for $s(k-1)$. Hence, 
+    $$P(n,k)=n \times \cdots \times n-(k-1)=\frac{n!}{(n-k)!}$$
+\end{proof}
+
+\section{Combinations}
+
+\begin{definition}
+    Given a set $X$, \textbf{a combination of size k} is a subset $A \subset X$ of size k of $[n]$. 
+    We let ${n \choose k}$ denote the number of combinations of size k of $[n]$. 
+    We read ${n \choose k}$ as n choose k.
+\end{definition}
+
+\begin{theorem}
+    For positive integer $n$ and $k$ with $n \geq k$. 
+    $${n \choose k} =\frac{P(n,k)}{k!}=\frac{n!}{(n-k)!k!}$$
+\end{theorem}
+
+\begin{proof}
+    In order to create a permutation of $[n]$ of size k, it suffices to choose a combination $A \subset [n]$ of size k to be the range and permute it. 
+    Thus, there are ${n \choose k} \times k!$ many ways to construct a [n]-permutations of size k. 
+    Hoewever, we have defined $P(n,k)$ as the number of [n]-permutations of size k. 
+    Hence $P(n,k)={n \choose k} \times k!$ i.e. ${n \choose k}=\frac{P(n,k)}{k!}$
+\end{proof}

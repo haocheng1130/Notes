@@ -1,0 +1,312 @@
+\chapter{Inclusion and Exclusion}
+
+
+\section{principle of Inclusion-Exclusion}
+
+\begin{definition}
+    Let $S$ be a set. Fix a collection $A_i \subset S$ indexed by $i \in \{1,\cdots,n\}$. 
+    Given $I \subset \{1,\cdots,n\}$, we let $A_I= \bigcap_{i \in I}A_i$. We set $A_{\emptyset}=S$.
+\end{definition}
+\textbf{Remark}:
+\begin{itemize}
+    \item $S$ is the set of all things.
+    \item $A_i$ is a set of elements in $S$ which are restricted by property indexed by $i$.
+    \item $A_I$ is the set of elements which are restricted by properties $I \subset \{1,\cdots,n\}$.
+    \item $A_{\emptyset}$ restricted by no property, hence is $S$.
+    \item This will help us simplify our notation.
+\end{itemize}
+
+\textbf{Example}:Let $S=\{1,2,\cdots,20\}$ and let 
+$$A_1=\{x \in S: x \text{ is divisible by } 2\}$$
+$$A_2=\{x \in S: x \text{ is divisible by } 3\}$$
+$$A_3=\{x \in S: x \text{ is divisible by } 4\}$$
+\begin{itemize}
+    \item $A_{\emptyset}=S=\{1,2,\cdots,20\}$
+    \item $A_{\{1,2\}}=\{6,12,18\}$ these are elements in $S$ that are divisible by 6
+    \item $A_{\{1,3\}}=\{4,8,12,16,20\}$ these are elements in $S$ that are divisible by 4
+    \item $A_{\{1,2,3\}}=\{12\}$ these are elements in $S$ that are divisible by 12
+\end{itemize}
+
+\begin{theorem}[Basic rule]
+    $$|A \cup B|=|A|+|B|-|A \cap B|$$
+\end{theorem}
+\begin{proof}
+    We can use some basic set theory knowledge to prove this.
+\end{proof}
+
+\begin{theorem}[MIT notation]
+    $$|\cup_{i=1}^nA_i|= \sum_{\emptyset \neq I \subset \{1,\cdots,n\}}(-1)^{|I|+1}|\cap_{i \in I}A_i|$$
+\end{theorem}
+\begin{proof}
+    Induction on $n \in \N$\\
+    Base case: $$|A_1|=(-1)^2|A_1|=\sum_{\emptyset \neq I \subset \{1\}}|\cap_{i \in I}A_i|$$
+    Inductive step: Assume the theorem is true for $n$. Let $A_1,\cdots,A_n,A_{n+1}$ be subsets of $S$.
+    \begin{equation}
+        \begin{split}
+            |\cup_{i=1}^{n+1}A_i| =& |\cup_{i=1}^nA_i|+|A_{n+1}|-|(\cup_{i=1}^nA_i)\cap A_{n+1}| \text{ (by the basic rule)}\\
+            =& |\cup_{i=1}^nA_i|+|A_{n+1}| -|(A_1\cap A_{n+1})\cup \cdots \cup(A_n\cap A_{n+1})|\\
+            =& \sum_{\emptyset \neq I \subset \{1,\cdots,n\}}(-1)^{|I|+1}|\cap_{i \in I}A_i| + |A_{n+1}|- \sum_{\emptyset \neq I \subset \{1,\cdots,n\}}(-1)^{|I|+1}|\cap_{i \in I}(A_i \cap A_{n+1})| \text{ (by I.H.)}\\
+            =& \sum_{\emptyset \neq I \subset \{1,\cdots,n\}}(-1)^{|I|+1}|\cap_{i \in I}A_i| - (-1)^{|\{n+1\}|} -\sum_{J \subset \{1,\cdots,n+!\}}(-1)^{|J|}|\cap_{i \in J}A_i|\\
+            & \text{ where } J \in \{I \cup \{n+1\}: \emptyset \neq I \subset \{1,\cdots,n\}\}\\
+            =& \sum_{P \subset \{1,\cdots,n\}}(-1)^{|P|+1}|\cap_{i \in P}A_i| + \sum_{Q \subset \{1,\cdots,n+1\}}(-1)^{|Q|+1}|\cap_{i \in Q}A_i|\\
+            & \text{ where } P \in \{I: \empty \neq I \subset \{1,\cdots,n\}\}, Q \in \{I\cup \{n+1\}: I \subset \{1,\cdots,n\}\}\\
+            & \text{ Note that the first part has no $A_{n+1}$ and the second part has $A_{n+1}$}\\
+            =& \sum_{\emptyset \neq T \subset \{1,\cdots,n+1\}}(-1)^{|T|+1}|\cap_{i \in T}A_i|
+        \end{split}
+    \end{equation}
+    This is totally my proof, I think it is intuitive and direct.
+\end{proof}
+
+\begin{theorem}[Our notation]
+    Let $S$ be a set. Fix a collection $A_i \subset S$ indexes by $i \in \{1,\cdots,n\}$. 
+    Then we have $$|S \setminus \cup_{i=1}^nA_i|= \sum_{I \subset \{1,\cdots,n\}}(-1)^{|I|}|A_I|$$
+\end{theorem}
+\begin{proof}
+    By induction on $n$.\\
+    Base case:
+    \begin{equation}
+        \begin{split}
+            \sum_{I \subset \{1\}}(-1)^{|I|}|A_I| &= (-1)^0|A_{\emptyset}| + (-1)^1|A_{\{1\}}|\\
+            &= |S| - |A_{1}|\\
+            &= |S \setminus A_1|
+        \end{split}
+    \end{equation}
+    Inductive step: Assume the theorem is true for $n$. Let $A_1,\cdots,A_n,A_{n+1}$ be subsets of $S$. 
+    Let $B_i=A_i \cap A_{n+1}$ for $i \in \{1,\cdots,n\}$ (note $B_{\emptyset}=A_{\emptyset}\cap A_{n+1}=A_{n+1}$)
+    \begin{equation}
+        \begin{split}
+            \sum_{I \subset \{1,\cdots,n+1\}}(-1)^{|I|}|A_I| &= \sum_{I \subset \{1,\cdots,n\}}(-1)^{|I|}|A_I| + \sum_{I \subset \{1,\cdots,n\}}(-1)^{|I|+1}|A_{I \cup \{n+1\}}|\\
+            &= |S \setminus \cup_{i=1}^nA_i| - \sum_{I \subset \{1,\cdots,n+1\}}(-1)^{|I|}|B_I|\\
+            &= |S \setminus \cup_{i=1}^nA_i| -|B_{\emptyset} \setminus \cup_{i=1}^nB_i|\\
+            &= |S \setminus \cup_{i=1}^nA_i| -|A_{n+1}\setminus \cup_{i=1}^n(A_i \cap A_{n+1})|\\
+            &= |S \setminus \cup_{i=1}^nA_i| -|A_{n+1}\setminus \cup_{i=1}^nA_i|\\
+            &= |(S \setminus \cup_{i=1}^nA_i) \setminus (A_{n+1} \setminus \cup_{i=1}^nA_i)|\\
+            &= |(S \cup (\cup_{i=1}^nA_i)) \setminus ((\cup_{i=1}^nA_i)\cup A_{n+1})|\\
+            &= |S \cup (\cup_{i=1}^{n+1}A_i)|
+        \end{split}
+    \end{equation}
+\end{proof}
+\textbf{Remark}:
+\begin{itemize}
+    \item We will use our notation during the course.
+    \item This theorem transform counting unions to counting intersections.
+    \item Intersections are easier to count since no overlap.
+\end{itemize}
+
+\noindent \textbf{Questions}:
+\begin{enumerate}
+    \item Compute the number of integer solutions to the equation $x_1+x_2+x_3+x_4=100$ with $x_1,x_2 \leq 10$ and $x_i \geq 0$ for all $i \in \{1,2,3,4\}$.
+    \item A wizard has 5 friends. During a long wizards' conference. They met any given friend at dinner 10 times, any pair of friends 5 times, 
+    any given threesome of friends 3 times, any given foursome 2 times, and all 5 friends together once. 
+    The wizard ate along 6 times. Determine how many days the wizards' conference lasted.
+\end{enumerate}
+
+\noindent \textbf{Answer}:
+\begin{enumerate}
+    \item Let $S$ be the set of sokutions with $x_i \geq 0$ for all $i \in \{1,2,3,4\}$.\\
+    Let $A_1$ be the set of solutions with $x_1 \geq 11$ and $x_i \geq 0$.\\
+    Let $A_2$ be the set of solutions with $x_2 \geq 11$ and $x_i \geq 0$.\\
+    We want to count $|S \setminus (A_1 \cup A_2)|$
+    \begin{equation}
+        \begin{split}
+            |S \setminus (A_1 \cup A_2)| &= |S| -|A_1| -|A_2| + |A_1 \cap A_2|\\
+            &= {100+3 \choose 3} -{89+3 \choose 3}-{89+3 \choose 3}+{78+3 \choose 3}
+        \end{split}
+    \end{equation}
+    \item Let $S$ be the set of all days. Let $\{1,2,3,4,5\}$ denotes the set of all friends.\\
+    Let $A_i=\{\text{days when the wizards met person i}\}$ for $i \in \{1,2,3,4,5\}$.\\
+    From the question, we have 
+    $$|A_1|=|A_2|=\cdots=|A_5|=10$$
+    $$|A_{\{1,2\}}|=|A_{\{1,3\}}|=\cdots=|A_{\{4,5\}}|=5$$
+    $$\forall I \subset \{1,2,3,4,5\} \text{ with } |I|=3. |A_I|=3$$
+    $$\forall I \subset \{1,2,3,4,5\} \text{ with } |I|=4. |A_I|=2$$
+    $$\forall I \subset \{1,2,3,4,5\} \text{ with } |I|=5. |A_I|=1$$
+    $$|S \setminus \cup_{i=1}^5A_i|= |\{\text{days the wizard eats along}\}|=6$$
+    By our theorem we have:
+    \begin{equation}
+        \begin{split}
+            \sum_{I \subset \{1,\cdots,5\}}(-1)^{|I|}|A_I| &= |S| + \sum_{\emptyset \neq I \subset \{1,\cdots,n\}}(-1)^{|I|}|A_I|=6\\
+            |S| &= 6 - \sum_{\emptyset \neq I \subset \{1,\cdots,n\}}(-1)^{|I|}|A_I|
+        \end{split}
+    \end{equation}
+\end{enumerate}
+
+
+
+\section{Counting Surjections}
+
+\begin{definition}
+    A function $f: X \longrightarrow Y$ is called a \textbf{surjection} if 
+    $$\forall y \in Y. \exists x \in X. f(x)=y$$
+\end{definition}
+
+\begin{theorem}[Counting Surjections]
+    Let $S(n,m)$ denotes the number of surjections $f:[n] \longrightarrow [m]$, 
+    then $$S(n,m)=\sum_{k=0}^m(-1)^k{m \choose k}(m-k)^n$$
+\end{theorem}
+\begin{proof}
+    We will use the inclusion-exclusion principle. Let $S$ be the set of all functions from $[n]$ to $[m]$. 
+    For each $i \in [m]$, let $A_i=\{f: \forall x \in [n].f(x) \neq i\}$. Note, $S \setminus \cup_{i \in [n]}A_i$ is the set of surjective functions. 
+    Note that for any $I \subset [m]$ of size $k$, $|A_I|=(m-k)^n$. This is because $A_I=\cap_{i \in I}A_i$ is the set of all functions that miss all of $I$.
+    \begin{equation}
+        \begin{split}
+            S(n,m) &= |S \setminus \cup_{i \in [m]}A_i|\\
+            &= \sum_{I \subset [m]}(-1)^{|I|}|A_I|\\
+            &= \sum_{I \subset [m] \text{ with } |I|=0}(-1)^{|I|}|A_I| + \sum_{I \subset [m] \text{ with } |I|=1}(-1)^{|I|}|A_I| + \cdots + \sum_{I \subset [m] \text{ with } |I|=m}(-1)^{|I|}|A_I|\\
+            &= \sum_{k=0}^m \sum_{I \subset [m] \text{ with } |I|=k}(-1)^{k}|A_I|\\
+            &= \sum_{k=0}^m \sum_{I \subset [m] \text{ with } |I|=k}(-1)^{k}(m-k)^n\\
+            &= \sum_{k=0}^m {m \choose k}(-1)^{k}|A_I|\\
+        \end{split}
+    \end{equation}
+\end{proof}
+
+\noindent \textbf{Question}: A teacher has 10 books(all different) that she wants to distribute to John, Paul, Ringo, George, 
+ensuring that each of them gets at least one book. In how many ways can she do this? 
+Compare this answer to when the books are not distinct.
+
+\noindent \textbf{Answer}:
+\begin{itemize}
+    \item For different books, lets label them as $\{1,\cdots,10\}$
+    $$S=\{f| f:\{1,\cdots,10\} \longrightarrow \{J,P,R,G\}\}$$
+    $$|S|=S(10,4)$$
+    \item For not different books, we use stars and bars:
+    \begin{equation}
+        \begin{cases}
+            x_1+x_2+x_3+x_4 =10\\
+            x_i \geq1 \text{ for all } i
+        \end{cases}
+    \end{equation}
+    This is equivalent to:
+    \begin{equation}
+        \begin{cases}
+            y_1+y_2+y_3+y_4=6\\
+            y_i \geq 0 \text{ for all } i
+        \end{cases}
+    \end{equation}
+\end{itemize}
+
+
+
+\section{Counting Derangements}
+
+\begin{definition}
+    A \textbf{derangement} is a permutation $s:[N] \longrightarrow [N]$ that has no fixed points. 
+    i.e. with the property that $\forall i \in[n]. s(i) \neq i$. 
+    We denote the number of Derangements with $d_n$
+\end{definition}
+
+\begin{theorem}[Counting Derangements]
+    $$d_n=\sum_{k=0}^n(-1)^k{n \choose k}(n-k)!=n!\sum_{k=0}^n\frac{(-1)^k}{k!}$$
+\end{theorem}
+\begin{proof}
+    For $i \in[n]$. Let $A_i$ be the set of permutations $s$ that satisfy $s(i)=i$. 
+    Let $S$ be the set of permutations of $[n]$. 
+    Note that $S \setminus \cup_{i \in [n]}A_i$ is the set of all Derangements. 
+    Note that for any $I \subset [n]$ of size $k$, $|A_I|=(n-k)!$. 
+    Similarly to counting surjections, we have
+    \begin{equation}
+        \begin{split}
+            d_n &= \sum_{I \subset [n]}(-1)^{|I|}|A_I|\\
+        &= \sum_{k=0}^n(-1)^k{n \choose k}(n-k)!\\
+        &= \sum_{k=0}^n(-1)^k \frac{n!}{k!(n-k)!}(n-k)!\\
+        &= n!\sum_{k=0}^n\frac{(-1)^k}{k!}
+        \end{split}
+    \end{equation}
+\end{proof}
+\textbf{Remark}:
+\begin{itemize}
+    \item Consider something interesting:
+    $$\frac{\text{number of derangements}}{\text{number of permutations}}=\frac{d_n}{n!}=\sum_{k=0}^n\frac{(-1)^k}{k!}$$
+    We notice that this is a probability, so it is between 0 and 1. What happens when $n$ gets bigger and bigger?
+    $$\sum_{k=0}^{\infty}\frac{(-1)^k}{k!}=\frac{1}{e}$$
+    \item We have alternative ways to get $d_n$.
+    \begin{itemize}
+        \item We can use a combinatorial proof to show for $n \geq 2$, $$d_n=(n-1)(d_{n-2}+d_{n-1})$$
+        \item We can do by algebra to show for $n \geq 2$, $$d_n=n \cdot d_{n-1}+(-1)^n$$
+    \end{itemize}
+\end{itemize}
+
+
+\section{Euler's Totient Function}
+
+\begin{definition}
+    Given two integers $n,m$, we call the \textbf{greatest common divisor (GCD)} of $n$ and $m$ the largest integer which divides both $n$ and $m$. 
+    We sometimes call this quantity $gcd(n,m)$.
+\end{definition}
+
+\begin{definition}
+    We say two integers $n,m$ are \textbf{relatively prime} if $gcd(n,m)=1$.
+\end{definition}
+
+
+\begin{definition}[Euler's Totient Function]
+    For $n \in \N$, define:
+    $$\phi(n)=|\{m \in \{1,\cdots,n\}: gcd(m,n)=1\}|$$
+\end{definition}
+\textbf{Remark}:
+\begin{itemize}
+    \item This function is of deep interest in number theory and group theory.
+\end{itemize}
+
+
+\begin{lemma}
+    Let $n \geq 2$ be an integer. Let $p_1,\cdots,p_k$ be a collection of distinct primes that divide $n$. 
+    There are $\frac{n}{p_1\times \cdots \times p_k}$ integers in $\{1,\cdots,n\}$.
+\end{lemma}
+\begin{proof}
+    Suppose $m \in \N$ and $m$ is divisible by all the $p_1,\cdots,p_k$. 
+    It follows then that $m=p_1 \times \cdots \times p_k\times \alpha$ for some $\alpha \in \N$. So
+    $$p_1 \times \cdots \times p_k \leq p_1 \times \cdots \times p_k \times \alpha \leq n$$
+    This implies that $$1 \leq \alpha \leq \frac{n}{p_1 \times \cdots \times p_k}$$
+\end{proof}
+
+\begin{lemma}
+    (We will use this lemma to prove the following theorem)
+    $$\prod_{i=1}^k(1-x_i)=\sum_{I \subset \{1,\cdots,k\}} \prod_{i \in I}(-x_i)$$
+\end{lemma}
+\begin{proof}
+    Induction on $k$.\\
+    Base case: $k=1$ 
+    \begin{equation}
+        \begin{split}
+            \sum_{I \subset \{1\}} \prod_{i \in I}(-x_i) &= \prod_{i \in \emptyset}(-x_i)+ \prod_{i \in \{1\}}(-x_i)\\
+            &= 1 + (-x_1) \text{ (the empty product is 1)}\\
+            &= \prod_{i=1}^1(1-x_i)
+        \end{split}
+    \end{equation}
+    Inductive step:
+    \begin{equation}
+        \begin{split}
+            \prod_{i=1}^{k+1}(1-x_i) =& (\prod_{i=1}^{k}(1-x_i))\times (1-x_{k+1})\\
+            =& \sum_{I \subset \{1,\cdots,k\}} \prod_{i \in I}(-x_i) - x_{k+1} \times \sum_{I \subset \{1,\cdots,k\}} \prod_{i \in I}(-x_i)\\
+            =& \sum_{P \subset \{1,\cdots,k+1\}} \prod_{i \in P}(-x_i) + \sum_{Q \subset \{1,\cdots,k+1\}} \prod_{i \in Q}(-x_i)\\
+            & \text{ where } P \in \{I: I \subset \{1,\cdots,k\}\}, Q \in \{I \cup\{k+1\}: I \subset \{1,\cdots,k\}\}\\
+            =& \sum_{L \subset \{1,\cdots,k+1\}} \prod_{i \in L}(-x_i)
+        \end{split}
+    \end{equation}
+\end{proof}
+
+
+\begin{theorem}[Compute $\phi(n)$]
+    For all $n \geq 2$. Assume $p_1, \cdots,p_k$ are all prime factors of $n$. Then
+    $$\phi(n)=n \times \prod_{i=1}^k \frac{p_i-1}{p_i}$$
+\end{theorem}
+\begin{proof}
+    For each $i \in \{1,\cdots,k\}$. Let $A_i$ be the set of integers in $\{1,\cdots,n\}$ that are divisible by $p_i$. 
+    Note, $\{1,\cdots,n\}\setminus \cup_{i=1}^kA_i$ is the set of positive integers $\leq n$ that are relatively prime with $n$. 
+    By our lemma, for any $I \subset \{1,\cdots,n\}. |A_I|=|\cap_{i \in I}A_i|$. 
+    Fix $i$, for $p_i$, by the lemma, there are $\frac{n}{p_i}$ numbers that are divisible by $p_i$ and $\leq n$. 
+    This shows $$|A_I|=\prod_{i \in I}\frac{n}{p_i}=n \cdot \prod_{i \in I}\frac{1}{p_i}$$
+    By definition of $\phi(n)$,
+    \begin{equation}
+        \begin{split}
+            \phi(n) &= |\{1,\cdots,n\}\setminus \cup_{i=1}^kA_i|\\
+            &= \sum_{I \subset \{1,\cdots,k\}}(-1)^{|I|}|A_I| \text{ (by inclusion-exclusion)}\\
+            &= \sum_{I \subset \{1,\cdots,k\}}(-1)^{|I|}n \cdot \prod_{i \in I}\frac{1}{p_i}\\
+            &= n \cdot \sum_{I \subset \{1,\cdots,k\}}(-1)^{|I|} \cdot \prod_{i \in I}\frac{1}{p_i}\\
+            &= n \cdot \sum_{I \subset \{1,\cdots,k\}}\cdot \prod_{i \in I}\frac{(-1)}{p_i}\\
+            &= n \cdot \sum_{i \in \{1,\cdots,k\}}(1-\frac{1}{p_i}) \text{ (by the lemma above)}\\
+            &= n \times \prod_{i=1}^k \frac{p_i-1}{p_i}
+        \end{split}
+    \end{equation}
+\end{proof}

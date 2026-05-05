@@ -1,0 +1,33 @@
+\chapter{Transport Equation}
+
+\section{Homogeneous transport equation}
+
+\begin{theorem}[Homogeneous transport equation]
+Consider the initial value problem
+$$
+\begin{cases}
+u_t + b \cdot Du = 0 & \text{in } \mathbb{R}^n \times (0,\infty), \\
+u = g & \text{on } \mathbb{R}^n \times \{t=0\}.
+\end{cases}
+$$
+If $u$ is a smooth solution, then
+$$
+u(x,t) = g(x-tb).
+$$
+\end{theorem}
+
+\section{Inhomogeneous transport equation}
+
+\begin{theorem}[Inhomogeneous transport equation]
+Consider the initial value problem
+$$
+\begin{cases}
+u_t + b \cdot Du = f & \text{in } \mathbb{R}^n \times (0,\infty), \\
+u = g & \text{on } \mathbb{R}^n \times \{t=0\}.
+\end{cases}
+$$
+Then
+$$
+u(x,t) = g(x-tb) + \int_0^t f\bigl(x+(s-t)b,\; s\bigr)\,ds.
+$$
+\end{theorem}

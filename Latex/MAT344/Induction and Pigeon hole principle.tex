@@ -1,0 +1,118 @@
+\chapter{Induction and Pigeon hole principle}
+
+\section{Well-ordering}
+As usual, before we talk about well-ordering, we need to introduce the concept of relations and partial order. But since we are familiar with these concepts, this course will skip these concepts here and focus using graphs to study partial orders in the future.
+\begin{definition}
+    An ordered set $(S,<)$ is caleed \textbf{well ordered} if every non-empty subset $X \subset S$ has a smallese element.
+\end{definition}
+e.g. The natural numbers $\N$ with the usual $<$.
+
+\section{Intoduction to Recerrence}
+\begin{definition}
+    A \textbf{recurrence relation} is any sequence whose value depends on its previous values. 
+    A recurrence more broadly refers to any self referential statement.
+\end{definition}
+
+\begin{theorem}
+    $\forall n \in \N. \forall k \in \N. {n \choose k}={n-1 \choose k-1}+{n-1 \choose k}$
+\end{theorem}
+\begin{proof}
+    (use a combinatorial proof)
+    \begin{itemize}
+        \item Suppose I want to hire people from a group of m. Suppose one of the people is named Ken.
+        \item The LHS counts the number of ways I can hire k people.
+        \item Alternatively, I can split into two cases, one when I hire Ken and one where I do not.
+    \end{itemize}
+\end{proof}
+
+\section{Induction}
+
+\begin{theorem}[Simple inductin]
+    For every $k \in \N$. Let $P(k)$ be a statement. Suppose we can show that for every k
+    \begin{itemize}
+        \item $P(1)$ is true. (base case)
+        \item $P(k) \Rightarrow P(k+1)$. (inductive step)
+    \end{itemize}
+    It follows that for all $k \in \N$, $P(k)$ is true.
+\end{theorem}
+
+\begin{theorem}[Strong Induction]
+    Let $P(n)$ be a collection of statements indexed bt $n \in \N$. Given
+    \begin{itemize}
+        \item $P(1)$ is true.
+        \item $\forall n \in \N.[(\forall k \in \N. k<n \Rightarrow P(k)) \Rightarrow P(n)]$
+    \end{itemize}
+    Then $\forall n \in \N. P(n)$
+\end{theorem}
+\textbf{Remark}
+\begin{itemize}
+    \item The primary distinction between choosing induction and strong induction is that simple induction only uses one piece of past information, strong induction uses all past information.
+    \item We prove simple induction and strong induction are equivalent in CSC240.
+\end{itemize}
+
+
+\section{Pigeon Hole Principle}
+As it is a very usefull theorem from our elementary school math to the theory of computation, 
+we will use a whole section to talk about this theorem.\\
+\begin{theorem}[Pigeon hole principle 1]
+    Let $X$ be a set of n objects. 
+    Suppose $\{X_1, \cdots ,X_k\}$ form a partition of $X$. 
+    If $k<n$, then $\exists i \in \{1, \cdots ,k\}. |X_i| \geq 2$
+\end{theorem}
+\begin{proof}
+    (By way of contradiction)
+    Suppose that for all $i \in \{1, \cdots ,k\}. |X_i|=1$. 
+    Since $\{X_1, \cdots ,X_k\}$ is a partition, then $n=|X|=\sum_{i=1}^k|X_i|=k$. Contradiction as $k<n$.
+\end{proof}
+
+\begin{theorem}[Pigeon hole principle 2]
+    Let $X$ be a set of n objects. Let $s:X \rightarrow \{1, \cdots ,k\}$. 
+    If $k<n$, then $s$ cannot be injective. i.e. there are distinct $x,y \in X$ such that $s(x)=s(y)$.
+\end{theorem}
+\begin{proof}
+    For $i \in \{1, \cdots ,k\}$, set $X_i=\{x \in X: s(x)=i\}$. 
+    $X_i$ are disjoint and $\bigcup_{i=1}^kX_i=X$.
+    Assume $s$ is injective. By definition, $\forall i \in \{1, \cdots ,k\}. \exists ! x \in X. s(x)=i$
+    Therefore, we have a contradiction that $\bigcup_{i=1}^k|X_i|=k < n=|X|$
+\end{proof}
+
+\begin{theorem}[Generalized PHP]
+    Fix $k,m \in \N$, sets $X$ and $Y$ with $|X|=km+1$ and $|Y|=m$, 
+    and a function $f:X \rightarrow Y$. Then there is an element $y \in Y$ with at least $k+1$ preimages. 
+    That is to say, there exist $x_1, \cdots ,x_k,x_{k+1} \in X$ distinct elements such that $f(x_1)=f(x_2)= \cdots =f(x_k)=f(x_{k+1})$.
+\end{theorem}
+\begin{proof}
+    We want to show that $$\exists y \in Y. |f^{-1}(y)| \geq k+1$$
+    So we assume the negation that $$\forall y \in Y. |f^{-1}(y)| \leq k$$
+    Since we do not know whether the function $f$ is surjective. So explicitly: $$\forall y \in f(X). |f^{-1}(y)| \leq k$$
+    Since $|Y|=m$, then we have $|f(X)| \leq m$. Since $X \rightarrow f(X)$ is a surjection. Then $\{X_y\}_{y \in f(X)}$ is a partition of $X$. 
+    Hence $$|X|=\sum_{y \in f(X)}|X_y| \leq m \times k=mk$$
+    But we already have $$|X|=km+1 >mk$$
+    This is a contradiction
+\end{proof}
+
+\noindent \textbf{Example}:
+\begin{enumerate}
+    \item Let $X$ be a set of 5 odd integers.\\
+    There is a disjoint pair $a,b \in X$ such that $a-b$ is divisible by 8.
+    \item For every $n \in \N$, there is a number who's decimal expansion only consists of 5's and 0's that is divisible by $n$.
+    \begin{itemize}
+        \item $n=1$ we have 5
+        \item $n=2$ we have 50
+        \item $n=3$ we have 555
+        \item $n=4$ we have 500
+        \item $n=5$ we have 5
+    \end{itemize}
+    Proof of the claim:\\
+    Fix $n \in \N$, consider $X=\{\sum_{i=0}^k5 \cdot 10^i | k \in \{0, \cdots,n\}\}$
+    \begin{itemize}
+        \item $k=0$ we have $5 \cdot 10^0=5$
+        \item $k=1$ we have $5 \cdot 10^0 + 5 \cdot 10^1=55$
+        \item $k=2$ we have $5 \cdot 10^0 + 5 \cdot 10^1 + 5 \cdot 10^2=555$
+    \end{itemize}
+    Consider the following partition $X_i=\{q \in X | q \equiv i \text{ mod } n\}$. 
+    This partition $X$ into $n$ pieces. 
+    By Pigeon hole principle, $$\exists i \in \{0,\cdots,n-1\}. |X_i| \geq 2$$
+    We take the biggest one and the smallest one in that set, take their difference, 
+    that thing is going to be divisible by n because they are in the same equivalent class.
+\end{enumerate}

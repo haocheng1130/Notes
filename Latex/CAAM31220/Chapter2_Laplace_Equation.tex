@@ -1,0 +1,523 @@
+\chapter{Laplace Equation}
+
+\section{Mean value property}
+
+\begin{definition}
+A $C^2$ function satisfying $\Delta u=0$ is called \emph{harmonic}.
+\end{definition}
+
+\begin{theorem}[Mean value property]
+If $u\in C^2(U)$ is harmonic, then
+$$
+u(x)= \fint_{\partial B(x,r)} u(x)\,dS
+= \fint_{B(x,r)} u(x)\,dx
+$$
+for each $B(x,r)\subset U$.
+\end{theorem}
+
+\begin{theorem}[Converse to the mean value property]
+If $u\in C^2(U)$ satisfies
+$$
+u(x)= \fint_{\partial B(x,r)} u(x)\,dS
+= \fint_{B(x,r)} u(x)\,dx
+$$
+for $B(x,r)\subset U$,
+then $u$ is harmonic.
+\end{theorem}
+
+
+\section{Maximum principle, positivity, uniqueness, Harnack inequality}
+
+\begin{definition}
+    $
+    C(\overline{U})
+    :=
+    \left\{
+    u\in C(U): u \text{ is uniformly continuous on every bounded subset of } U
+    \right\}.
+    $
+    This mmeans $u$ extends continuously to $\overline{U}$.
+    \end{definition}
+
+\begin{theorem}[Maximum principle]
+Suppose $u\in C^2(U)\cap C(\overline{U})$ is harmonic within $U$.
+
+\begin{enumerate}
+    \item Then
+    $$
+    \max_{\overline{U}} u = \max_{\partial U} u.
+    $$
+    This is the \emph{weak maximum principle}.
+
+    \item Furthermore, let $U$ be connected. If there exists $x_0\in U$ such that
+    $$
+    u(x_0)=\max_{\overline{U}} u,
+    $$
+    then $u$ is constant within $U$.
+    
+    This is the \emph{strong maximum principle}.
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Positivity]
+Let $U$ be open, bounded, and connected, with $U\subset \mathbb{R}^n$, and let
+$
+u\in C^2(U)\cap C(\overline{U}).
+$
+Suppose $u$ solves the boundary value problem
+$$
+\begin{cases}
+\Delta u=0 & \text{in } U,\\
+u=g & \text{on } \partial U,
+\end{cases}
+\qquad \text{with } g\ge 0.
+$$
+If $g(z)>0$ for some $z\in \partial U$, then
+$
+u(x)>0 \text{ for all } x\in U.
+$
+\end{theorem}
+
+\begin{theorem}[Uniqueness]
+Let $g\in C(\partial U)$ and $f\in C(U)$.
+Then there exists at most one solution
+$
+u\in C^2(U)\cap C(\overline{U})
+$
+of
+$$
+\begin{cases}
+-\Delta u=f & \text{in } U,\\
+u=g & \text{on } \partial U.
+\end{cases}
+$$
+\end{theorem}
+
+\begin{definition}
+$V\subset\subset U$ is defined as
+$
+\overline{V}\text{ is compact and }\overline{V}\subset U.
+$
+That is, $V$ is compactly contained in $U$.
+\end{definition}
+
+\begin{theorem}[Harnack's inequality]
+For each connected open set $V\subset\subset U$, there exists a constant
+$
+C=C(V)>0
+$
+such that
+$$
+\sup_V u \le C \inf_V u
+$$
+for all nonnegative harmonic functions $u$ in $U$.
+\end{theorem}
+
+\section{Energy method and Dirichlet principle}
+
+\begin{theorem}[Dirichlet's principle]
+Assume $u\in C^2(\overline{U})$ solves
+$$
+\begin{cases}
+-\Delta u=f & \text{in } U,\\
+u=g & \text{on } \partial U,
+\end{cases}
+$$
+the Poisson boundary value problem.
+Define the energy functional
+$$
+I[w]:=\int_U \left( \frac12 |Dw|^2 - wf \right)\,dx.
+$$
+Define the admissible set
+$$
+\mathcal{A}:=\left\{ w\in C^2(\overline{U}) : w=g \text{ on } \partial U \right\}.
+$$
+Then
+$$
+I[u]=\min_{w\in \mathcal{A}} I[w].
+$$
+The converse is also true.
+\end{theorem}
+
+\section{Mathematical supplement: distributions}
+
+
+\begin{definition}
+For $f$,
+$
+\operatorname{supp}(f):=\overline{\{x\in U: f(x)\neq 0\}}.
+$
+\end{definition}
+
+\begin{definition}
+Define
+$
+\mathcal{D}(U):=
+\left\{
+f\in C^\infty(U): \operatorname{supp}(f)\text{ is compact}
+\right\}.
+$
+This is the space of test functions on $U$.
+$\mathcal{D}(U)$ is equipped with the following notion of convergence:
+for $(f_n)\subset \mathcal{D}(U)$, $f\in \mathcal{D}(U)$,
+$$
+f_n\to f \text{ in } \mathcal{D}(U)
+$$
+means that there exists $K\subset\subset U$ such that
+$
+\operatorname{supp}(f_n)\subset K
+$
+for all $n$ and
+$
+\lim_{n\to\infty} \|f_n-f\|_{C^k(U)}=0
+$
+for all $k$, where
+$$
+\|f\|_{C^k(U)}
+=
+\sum_{|\alpha|\le k}\|D^\alpha f\|_{L^\infty(U)}.
+$$
+\end{definition}
+
+\begin{claim}\
+\begin{enumerate}
+    \item $\mathcal{D}(U)$ is not metrizable.
+    
+    \item A linear functional
+    $$
+    T:\mathcal{D}(U)\to\mathbb{R}
+    $$
+    is (sequentially) continuous if and only if for every $K\subset\subset U$ there exist
+    $m\in \mathbb{N}$ and $C>0$ such that, for every $\phi\in \mathcal{D}_K
+    :=\{\phi\in\mathcal{D}:\operatorname{supp}(\phi)\subset K\}$,
+    $$
+    |T(\phi)|\le C \|\phi\|_{C^{m}(U)}.
+    $$
+\end{enumerate}
+\end{claim}
+
+\begin{enumerate}
+    \setcounter{enumi}{2}
+    \item If
+    $
+    f\in L^1_{\mathrm{loc}}
+    :=
+    \left\{
+    f:U\to \mathbb{R}: f \text{ measurable},\ 
+    \int_K |f|\,dx<\infty \ \forall K\subset\subset U
+    \right\},
+    $
+    then
+    $$
+    T_f:\mathcal{D}(U)\to \mathbb{R},
+    \qquad
+    \phi\mapsto T_f(\phi)=\int_U \phi f\,dx
+    $$
+    is a sequentially continuous linear functional on $\mathcal{D}$, i.e. $T_f\in \mathcal{D}'$.
+
+    \item The map
+    $
+    f\mapsto T_f
+    $
+    is injective from $L^1_{\mathrm{loc}}$ to $\mathcal{D}'$.
+    So $\mathcal{D}'$ contains a copy of $L^1_{\mathrm{loc}}$.
+\end{enumerate}
+
+\begin{definition}
+We call elements in $\mathcal{D}'$ \emph{distributions}.
+\end{definition}
+
+\begin{proposition}
+For all multi-indices $\alpha$ and all $T\in \mathcal{D}'$,
+$$
+D^\alpha T:\phi\mapsto (-1)^{|\alpha|}T(D^\alpha \phi)
+$$
+defines a distribution $D^\alpha T\in \mathcal{D}'$.
+\end{proposition}
+
+\paragraph{Motivation.}
+For $f,\phi\in C_c^\infty(U)$,
+$$
+\int_U (D^\alpha f)\phi\,dx
+=
+(-1)^{|\alpha|}
+\int_U f(D^\alpha \phi)\,dx.
+$$
+
+\begin{proposition}
+Suppose $u\in C^k(U)$ and $\alpha$ is a multi-index with $|\alpha|\le k$.
+If
+$$
+T_u:\phi\mapsto \int_U u\phi\,dx
+$$
+is the distribution defined by $u$, then
+$$
+D^\alpha T_u = T_{D^\alpha u}
+\qquad \text{for all } \phi\in \mathcal{D}.
+$$
+That is,
+$$
+(D^\alpha T_u)(\phi)=T_{D^\alpha u}(\phi),
+$$
+or equivalently,
+$$
+(-1)^{|\alpha|}\int_U u\,D^\alpha \phi
+=
+\int_U (D^\alpha u)\phi.
+$$
+\end{proposition}
+
+\section{Fundamental solution and representation formulas}
+
+\subsection*{Back to Laplace equation}
+
+\begin{definition}
+The fundamental solution of the Laplace equation is defined by
+$$
+\Phi(x)=
+\begin{cases}
+-\dfrac{1}{2\pi}\log|x|, & n=2,\\[1em]
+\dfrac{1}{n(n-2)\alpha(n)}\dfrac{1}{|x|^{n-2}}, & n\ge 3.
+\end{cases}
+$$
+\end{definition}
+
+\begin{proposition}
+It is easy to see that $\Phi(x)$ is harmonic away from $0$.
+But it has exactly the right singularity at $0$ to produce a point source there:
+$$
+\int_{\mathbb{R}^n}\Phi(x)\Delta \phi(x)\,dx
+=
+-\phi(0)
+\qquad \forall \phi\in C_c^2(\mathbb{R}^n).
+$$
+That is,
+$$
+\Delta T_\Phi(\phi)=-\delta_0(\phi).
+$$
+\end{proposition}
+
+\begin{theorem}[Solving Poisson equation]
+Define $u$ by
+$$
+u(x)=\int_{\mathbb{R}^n}\Phi(x-y)f(y)\,dy
+=
+\begin{cases}
+-\dfrac{1}{2\pi}\displaystyle\int_{\mathbb{R}^2}\log|x-y|\,f(y)\,dy, & n=2,\\[1.2em]
+\dfrac{1}{n(n-2)\alpha(n)}
+\displaystyle\int_{\mathbb{R}^n}\dfrac{f(y)}{|x-y|^{n-2}}\,dy, & n\ge 3.
+\end{cases}
+$$
+Then
+\begin{enumerate}
+    \item $u\in C^2(\mathbb{R}^n)$,
+    \item $-\Delta u=f$ in $\mathbb{R}^n$.
+\end{enumerate}
+\end{theorem}
+
+\begin{definition}
+The Green's function for the region $U$ is
+$$
+G(x,y)=\Phi(y-x)-\phi^x(y),
+$$
+where $\phi^x=\phi^x(y)$ is called a \emph{corrector function}, which solves the boundary value problem
+$$
+\begin{cases}
+\Delta \phi^x = 0 & \text{in } U,\\
+\phi^x = \Phi(y-x) & \text{on } \partial U.
+\end{cases}
+$$
+Here $U\subset \mathbb{R}^n$ is open and bounded, and $\partial U$ is of class $C^1$.
+\end{definition}
+
+\begin{theorem}[Representation formula using Green's function]
+If $u\in C^2(U)$ solves the Poisson equation
+$$
+\begin{cases}
+-\Delta u=f & \text{in } U,\\
+u=g & \text{on } \partial U,
+\end{cases}
+$$
+then
+$$
+u(x)
+=
+-\int_{\partial U} g(y)\frac{\partial G}{\partial \nu}(x,y)\,dS(y)
++
+\int_U f(y)G(x,y)\,dy.
+$$
+\end{theorem}
+
+\begin{theorem}[Symmetry of Green's function]
+For all $x,y\in U$ with $x\neq y$, we have
+$$
+G(y,x)=G(x,y).
+$$
+\end{theorem}
+
+\begin{theorem}[Poisson formula for $\mathbb{R}_+^n$]
+Suppose
+$
+g\in C(\mathbb{R}^{n-1})\cap L^\infty(\mathbb{R}^{n-1}).
+$
+Let $u:\mathbb{R}_+^n\to \mathbb{R}$ be defined by
+$$
+u(x)=\int_{\partial \mathbb{R}_+^n} K(x,y)g(y)\,dy
+=
+\int_{\partial \mathbb{R}_+^n}
+\frac{2x_n}{n\alpha(n)}
+\frac{1}{|x-y|^n}g(y)\,dy.
+$$
+Then
+\begin{enumerate}
+    \item $u\in C^\infty(\mathbb{R}_+^n)\cap L^\infty(\mathbb{R}_+^n)$,
+    \item $\Delta u=0$ in $\mathbb{R}_+^n$,
+    \item for every $x_0\in \partial \mathbb{R}_+^n$,
+    $
+    \lim_{x\to x_0}u(x)=g(x_0).
+    $
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Poisson formula for a ball]
+Suppose
+$
+g\in C(\partial B(0,1)).
+$
+Let $u:B(0,1)\to \mathbb{R}$ be defined by
+$$
+u(x)=\int_{\partial B(0,1)} K(x,y)g(y)\,dS(y)
+=
+\int_{\partial B(0,1)}
+\frac{1-|x|^2}{n\alpha(n)}
+\frac{1}{|x-y|^n}g(y)\,dS(y).
+$$
+Then
+\begin{enumerate}
+    \item $u\in C^\infty(B(0,1))$,
+    \item $\Delta u=0$ in $B(0,1)$,
+    \item for every $x_0\in \partial B(0,1)$,
+    $
+    \lim_{x\to x_0}u(x)=g(x_0).
+    $
+\end{enumerate}
+\end{theorem}
+
+\section{Mathematical supplement: mollifiers}
+
+\begin{definition}[Standard mollifier]
+Define $\eta\in C_c^\infty(\mathbb{R}^n)$ by
+$$
+\eta(x)=
+\begin{cases}
+C\exp\!\left(\dfrac{1}{|x|^2-1}\right), & |x|<1,\\[1em]
+0, & |x|\ge 1,
+\end{cases}
+$$
+where the constant $C>0$ is selected so that
+$$
+\int_{\mathbb{R}^n}\eta\,dx=1.
+$$
+$\eta$ is called the \emph{standard mollifier}.
+\end{definition}
+
+\begin{definition}[Mollifier]
+For $\varepsilon>0$, set
+$$
+\eta_\varepsilon(x)=\frac{1}{\varepsilon^n}\eta\!\left(\frac{x}{\varepsilon}\right).
+$$
+Then the functions $\eta_\varepsilon$ are in $C_c^\infty(\mathbb{R}^n)$ and satisfy
+$$
+\int_{\mathbb{R}^n}\eta_\varepsilon\,dx=1,
+\qquad
+\operatorname{supp}(\eta_\varepsilon)\subset B(0,\varepsilon).
+$$
+\end{definition}
+
+\begin{definition}[Mollification]
+If $f:U\to \mathbb{R}$ is locally integrable, define its mollification by
+$$
+f_\varepsilon=\eta_\varepsilon * f
+\qquad \text{in } U_\varepsilon,
+$$
+that is,
+$$
+f_\varepsilon(x)
+=
+\int_U \eta_\varepsilon(x-y)f(y)\,dy
+=
+\int_{B(0,\varepsilon)} \eta_\varepsilon(y)f(x-y)\,dy.
+$$
+\end{definition}
+
+
+\begin{theorem}[Properties of mollifiers]
+Here we have the following properties
+\begin{enumerate}
+    \item $f_\varepsilon\in C^\infty(U_\varepsilon)$.
+    \item $f_\varepsilon\to f$ a.e. as $\varepsilon\to 0$.
+    \item If $f\in C(U)$, then $f_\varepsilon\to f$ uniformly on compact subsets of $U$.
+    \item If $1\le p<\infty$ and $f\in L^p_{\mathrm{loc}}(U)$, then
+    $
+    f_\varepsilon\to f \text{ in } L^p_{\mathrm{loc}}(U).
+    $
+\end{enumerate}
+\end{theorem}
+
+\section{Regularity and further properties}
+
+\subsection*{Back to Laplace equation}
+
+\begin{theorem}[Smoothness]
+If $u\in C(U)$ satisfies the mean value property for each $B(x,r)\subset U$, then
+$
+u\in C^\infty(U).
+$
+\end{theorem}
+
+\begin{theorem}[Estimates on derivatives]
+Assume $u$ is harmonic in $U$.
+Then
+$$
+|D^\alpha u(x_0)|
+\le
+\frac{C_k}{r^{n+k}}\|u\|_{L^1(B(x_0,r))}
+$$
+for each $B(x_0,r)\subset U$ and each multi-index $\alpha$ with order $|\alpha|=k$,
+where
+$$
+C_0=\frac{1}{\alpha(n)},
+\qquad
+C_k=\frac{(2^n n)^k}{\alpha(n)}.
+$$
+\end{theorem}
+
+\begin{theorem}[Liouville's theorem]
+Suppose $u:\mathbb{R}^n\to \mathbb{R}$ is harmonic and bounded.
+Then $u$ is a constant.
+\end{theorem}
+
+\begin{theorem}[Representation formula]
+For $n\geq 3$, let
+$
+f\in C_c^2(\mathbb{R}^n).
+$
+Then any bounded solution of
+$
+-\Delta u=f \qquad \text{in } \mathbb{R}^3
+$
+has the form
+$$
+u(x)=\int_{\mathbb{R}^n}\Phi(x-y)f(y)\,dy + C
+$$
+for some constant $C$.
+\end{theorem}
+
+\begin{remark}
+The argument fails for $n=2$, since $\log|x|$ is not bounded at $\infty$.
+\end{remark}
+
+\begin{theorem}[Analyticity]
+Assume $u$ is harmonic in $U$.
+Then $u$ is analytic in $U$.
+\end{theorem}

@@ -1,0 +1,37 @@
+\documentclass{report}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath, amsfonts, amsthm, graphicx, geometry, lipsum}
+\usepackage{hyperref}
+\usepackage{indentfirst}
+
+\newtheorem{definition}{Definition}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{corollary}{Corollary}[theorem]
+\newtheorem{proposition}{Proposition}[theorem]
+
+
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\R}{\mathbb{R}}
+
+\title{MAT344 Introduction To Combinatorics\\
+{\Large University of Toronto}}
+\author{Haocheng Sun}
+\date{Summer 2022}
+
+\begin{document}
+\maketitle
+
+\tableofcontents
+
+\include{Strings and Sets}
+\include{Binomial Coefficients}
+\include{Induction and Pigeon hole principle}
+\include{Inclusion and Exclusion}
+\include{Graph theory}
+\include{Generating functions}
+\include{Recurrence}
+\include{Combinatorial Game Theory}
+
+\end{document}

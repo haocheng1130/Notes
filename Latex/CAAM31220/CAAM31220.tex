@@ -1,0 +1,65 @@
+\documentclass[11pt]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath, amsfonts, amssymb, amsthm, mathtools}
+\usepackage{esint}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{enumitem}
+\usepackage{indentfirst}
+\usepackage{mathrsfs}
+
+% ---------- theorem environments ----------
+\newtheorem{definition}{Definition}[section]
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+\theoremstyle{remark}
+\newtheorem{remark}[theorem]{Remark}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{claim}[theorem]{Claim}
+
+% ---------- macros ----------
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\ep}{\varepsilon}
+\newcommand{\vp}{\varphi}
+\newcommand{\grad}{\nabla}
+\newcommand{\lap}{\Delta}
+\newcommand{\p}{\partial}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\dist}{\operatorname{dist}}
+\newcommand{\diam}{\operatorname{diam}}
+\newcommand{\diver}{\operatorname{div}}
+\newcommand{\sign}{\operatorname{sign}}
+\newcommand{\osc}{\operatorname{osc}}
+\newcommand{\Lip}{\operatorname{Lip}}
+\newcommand{\esssup}{\operatorname*{ess\,sup}}
+\newcommand{\essinf}{\operatorname*{ess\,inf}}
+\newcommand{\norm}[1]{\left\lVert #1 \right\rVert}
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert}
+\newcommand{\set}[1]{\left\{ #1 \right\}}
+\newcommand{\paren}[1]{\left( #1 \right)}
+\newcommand{\brac}[1]{\left[ #1 \right]}
+
+\title{CAAM31220 Partial Differential Equations\\{\Large University of Chicago}}
+\author{Haocheng Sun}
+\date{Spring 2026}
+
+\begin{document}
+\maketitle
+\tableofcontents
+
+\include{Chapter1_Transport_Equation}
+\include{Chapter2_Laplace_Equation}
+\include{Chapter3_Heat_Equation}
+\include{Chapter4_Wave_Equation}
+\include{Chapter5_The_Method_of_Characteristics}
+\include{Chapter6_Holder_and_Soblev_Spaces}
+
+
+\end{document}

@@ -1,0 +1,348 @@
+\chapter{Heat Equation}
+
+\section{Fundamental solution and representation formulas}
+
+We consider the heat equation
+$$
+u_t-\Delta_x u=0.
+$$
+
+\begin{definition}[Fundamental solution of the heat equation]
+The fundamental solution of the heat equation on $\mathbb{R}^n$ is the function
+$
+\Phi:\mathbb{R}^n\times \mathbb{R}\setminus\{0\}\to \mathbb{R}
+$
+defined by
+$$
+\Phi(x,t)=
+\begin{cases}
+\dfrac{1}{(4\pi t)^{n/2}}\exp\!\left(-\dfrac{|x|^2}{4t}\right), & x\in \mathbb{R}^n,\ t>0,\\[1em]
+0, & x\in \mathbb{R}^n,\ t<0.
+\end{cases}
+$$
+\end{definition}
+
+\begin{lemma}[Integral of the fundamental solution]
+For each $t>0$,
+$$
+\int_{\mathbb{R}^n}\Phi(x,t)\,dx=1.
+$$
+\end{lemma}
+
+\begin{theorem}[Solution of the initial-value problem]
+Consider the initial value problem
+$$
+\begin{cases}
+u_t-\Delta u=0 & \text{in } \mathbb{R}^n\times (0,\infty),\\
+u=g & \text{on } \mathbb{R}^n\times \{t=0\}.
+\end{cases}
+$$
+Let $u(x,t)$ be defined by
+$$
+u(x,t)=\int_{\mathbb{R}^n}\Phi(x-y,t)g(y)\,dy.
+$$
+Then:
+\begin{enumerate}
+    \item $u\in C^\infty(\mathbb{R}^n\times \mathbb{R}_+)$,
+    \item $u$ solves the heat equation,
+    \item $u$ satisfies the initial value
+    $
+    \lim_{(x,t)\to (x^0,0)}u(x,t)=g(x^0).
+    $
+    for $t >0$.
+\end{enumerate}
+\end{theorem}
+
+
+\begin{theorem}[Solution of the inhomogeneous problem]
+Consider the inhomogeneous problem
+$$
+\begin{cases}
+u_t-\Delta u=f, & (t,x)\in \mathbb{R}_+\times \mathbb{R}^n,\\
+u=0, & (t,x)\in \{0\}\times \mathbb{R}^n.
+\end{cases}
+$$
+Then
+$$
+u(x,t)=\int_0^t\int_{\mathbb{R}^n}\Phi(x-y,t-s)f(y,s)\,dy\,ds.
+$$
+Moreover:
+\begin{enumerate}
+    \item $u\in C^\infty$,
+    \item $u$ solves the PDE,
+    \item
+    $
+    \lim_{(x,t)\to (x^0,0)}u(x,t)=0.
+    $
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Solution of the inhomogeneous problem with initial data]
+Combining the above two theorems, we discover that
+$$
+u(x,t)
+=
+\int_{\mathbb{R}^n}\Phi(x-y,t)g(y)\,dy
++
+\int_0^t\int_{\mathbb{R}^n}\Phi(x-y,t-s)f(y,s)\,dy\,ds
+$$
+is a solution of
+$$
+\begin{cases}
+u_t-\Delta u=f & \text{in } \mathbb{R}^n\times (0,\infty),\\
+u=g & \text{on } \mathbb{R}^n\times \{t=0\},
+\end{cases}
+$$
+under the hypotheses on $g,f$ as above (i.e.
+$
+g\in C(\mathbb{R}^n)\cap L^\infty(\mathbb{R}^n), 
+$
+and 
+$
+f\in C_c^2(\mathbb{R}^n\times [0,\infty))
+$
+with compact support.)
+\end{theorem}
+
+\section{Mean value formula}
+
+\subsection*{Motivation}
+Harmonic functions are characterized by averages over balls, where balls arise as level sets of the fundamental solution of $\Delta u=0$.
+For the heat equation, we look at level sets of $\Phi(t-s,x-y)$:
+$$
+E(x,t;r):=
+\left\{
+(y,s)\in \mathbb{R}^{n+1}: s\le t,\ \Phi(x-y,t-s)\ge \frac{1}{r^n}
+\right\}.
+$$
+This is called a \emph{heat ball}.
+
+\begin{theorem}[Mean value property for the heat equation]
+Let
+$$
+u\in C_1^2(U_T)
+:=
+\left\{
+u\in C(U_T): D_xu,\ D_x^2u,\ u_t\in C
+\right\}.
+$$
+Then
+$$
+u(x,t)
+=
+\frac{1}{4r^n}
+\iint_{E(x,t;r)}
+u(y,s)\frac{|x-y|^2}{(t-s)^2}\,dy\,ds.
+$$
+\end{theorem}
+
+\begin{remark}
+Here $C_1^2$ means:
+\begin{itemize}
+    \item ``$2$'': up to second order derivatives in space,
+    \item ``$1$'': up to first order derivative in time.
+\end{itemize}
+\end{remark}
+
+\section{Maximum principle, positivity, uniqueness}
+
+\begin{theorem}[Maximum principle]
+Here we have
+\begin{enumerate}
+    \item
+    Weak maximum principle
+    $$
+    \max_{\overline{U_T}}u=\max_{\Gamma_T}u.
+    $$
+
+    \item If $U$ is connected and there exists $(x_0,t_0)\in U_T$ such that
+    $$
+    u(x_0,t_0)=\max_{\overline{U_T}}u,
+    $$
+    then $u$ is constant in $\overline{U_{t_0}}$.
+    
+    This is the strong maximum principle.
+\end{enumerate}
+\end{theorem}
+
+\begin{theorem}[Positivity]
+Let $U$ be connected, and let
+$
+u\in C_1^2(U_T)\cap C(\overline{U_T})
+$
+satisfy
+$$
+\begin{cases}
+u_t-\Delta u=0 & \text{in } U_T,\\
+u=0 & \text{on } \partial U\times [0,T],\\
+u=g & \text{on } U\times \{t=0\}.
+\end{cases}
+$$
+If $g\ge 0$ and there exists $x_0\in U$ such that $g(x_0,0)>0$, then
+$
+u>0
+$
+everywhere.
+\end{theorem}
+
+\begin{theorem}[Uniqueness on bounded domains]
+Let
+$
+g\in C(\Gamma_T)
+$
+and
+$
+f\in C(U_T).
+$
+Then there exists at most one solution
+$
+u\in C_1^2(U_T)\cap C(\overline{U_T})
+$
+of the boundary value problem
+$$
+\begin{cases}
+u_t-\Delta u=f & \text{in } U_T,\\
+u=g & \text{on } \Gamma_T.
+\end{cases}
+$$
+\end{theorem}
+
+\subsection*{Now we study $U=\mathbb{R}^n$}
+
+\begin{theorem}[Maximum principle for the Cauchy problem]
+Suppose
+$
+u\in C_1^2(\mathbb{R}^n\times (0,T))\cap C(\mathbb{R}^n\times [0,T])
+$
+solves
+$$
+\begin{cases}
+u_t-\Delta u=0 & \text{in } \mathbb{R}^n\times (0,T],\\
+u=g & \text{on } \mathbb{R}^n\times \{t=0\},
+\end{cases}
+$$
+and satisfies the growth estimate
+$$
+u(x,t)\le A e^{a|x|^2}
+$$
+for constants $A,a>0$.
+Then
+$$
+\sup_{\mathbb{R}^n\times [0,T]}u(x,t)=\sup_{\mathbb{R}^n}g(x).
+$$
+\end{theorem}
+
+
+\begin{theorem}[Uniqueness for the Cauchy problem]
+Let
+$
+g\in C(\mathbb{R}^n)
+$
+and
+$
+f\in C(\mathbb{R}^n\times [0,T]).
+$
+Then there is at most one solution
+$
+u\in C_1^2(\mathbb{R}^n\times (0,T))\cap C(\mathbb{R}^n\times [0,T])
+$
+of the initial value problem
+$$
+\begin{cases}
+u_t-\Delta u=f & \text{in } \mathbb{R}^n\times (0,T],\\
+u=g & \text{on } \mathbb{R}^n\times \{t=0\},
+\end{cases}
+$$
+satisfying the growth estimate
+$$
+|u(x,t)|\le A e^{a|x|^2}
+$$
+for constants $A,a>0$.
+\end{theorem}
+
+\begin{proof}
+Apply the theorem on the maximum principle for the Cauchy problem.
+\end{proof}
+
+\begin{remark}
+Without growth control, this is not true.
+\end{remark}
+
+\section{Regularity}
+
+\begin{definition}[Parabolic Cylinder]
+    The cylinder is defined as $$C(x,t;r)=\{(y,s)\mid |x-y|\le r,\ t-r^2\le s\le t\}$$
+    to denote the closed circular cylinder of radius $r$, height $r^2$, and top center point $(x,t)$.
+\end{definition}
+
+\begin{theorem}[Smoothness]
+Suppose
+$
+u\in C_1^2(U_T)
+$
+solves the heat equation. Then
+$
+u\in C^\infty(U_T).
+$
+\end{theorem}
+
+\begin{remark}
+This is true even if $u$ is not smooth on $\Gamma_T$.
+\end{remark}
+
+\begin{proof}
+Leverage smoothness of the convolution formula, together with results on cutoffs and uniqueness.
+\end{proof}
+
+\begin{theorem}[Estimate on derivatives]
+For all $k,\ell\in \mathbb{N}$, there exists $C_{n,k,\ell}$ such that
+$$
+\max_{Q(x,t;r/2)}\left|D_x^kD_t^\ell u\right|
+\le
+\frac{C_{n,k,\ell}}{r^{k+2\ell+n+2}}
+\|u\|_{L^1(Q(x,t;r))}
+$$
+for suitable parabolic cylinders $Q(x,t;r)$.
+\end{theorem}
+
+\begin{remark}
+The norm on $D_x^kD_t^\ell u$ is the Frobenius norm.
+\end{remark}
+
+\section{Energy methods and uniqueness}
+
+\begin{theorem}[Uniqueness]
+There is at most one solution of the boundary value problem
+$$
+\begin{cases}
+u_t-\Delta u=f & \text{in } U_T,\\
+u=g & \text{on } \Gamma_T,
+\end{cases}
+$$
+with
+$
+u\in C_1^2(\overline{U_T}).
+$
+\end{theorem}
+
+
+\begin{theorem}[Backward uniqueness]
+Suppose $u,\hat{u}$ solve
+$$
+\begin{cases}
+u_t-\Delta u=0 & \text{in } U_T,\\
+u=g & \text{on } \partial U\times [0,T],
+\end{cases}
+$$
+with
+$
+u,\hat{u}\in C_1^2(\overline{U_T}).
+$
+Assume at time $T$ we have $u(x,T)=\tilde{u}(x,T)$ for all $x\in U$.
+Then
+$
+u\equiv \hat{u}
+$
+within $U_T$.
+
+\end{theorem}
