@@ -1,4 +1,6 @@
 .DS_Store
+Obsidian/
+Typora/
 *.aux
 *.fdb_latexmk
 *.fls
