@@ -122,6 +122,25 @@ $$
 $$
 \end{definition}
 
+\begin{theorem}
+Since
+$
+v\in L^1(0,1),
+$
+the Lebesgue integral is absolutely continuous with respect to measure. That is, for every $\varepsilon>0$, there exists $\delta>0$ such that for every measurable set
+$
+E\subset (0,1),
+$
+if
+$
+|E|<\delta,
+$
+then
+$
+\int_E |v(t)|\,dt<\varepsilon.
+$
+\end{theorem}
+
 \begin{theorem}[Minkowski inequality]
 For $1\le p\le \infty$,
 $$
@@ -149,6 +168,8 @@ $$
 \begin{theorem}
 The spaces $L^p(U)$ are Banach spaces.
 \end{theorem}
+
+
 
 
 
@@ -410,6 +431,40 @@ Then:
 Part (4) follows by induction on $|\alpha|$.
 \end{proof}
 
+\begin{claim}
+Set
+$
+I=(0,1)
+$
+and fix
+$
+1\le p<\infty.
+$
+If
+$
+u\in W^{1,p}(I)
+$
+has weak derivative
+$
+u'\in L^p(I)
+$
+which satisfies
+$
+u'(x)=0
+$
+for almost every $x\in I$, then $u$ is constant almost everywhere in $I$.
+That is, there exists
+$
+c_0\in \mathbb{R}
+$
+such that
+$
+u(x)=c_0
+\text{ for a.e. } x\in I.
+$
+\end{claim}
+
+
 \begin{definition}[Sobolev norm]
     For $1\le p\le \infty$, define the Sobolev norm by
     $$
@@ -443,12 +498,6 @@ Part (4) follows by induction on $|\alpha|$.
     \right|^p
     \,dx
     \right)^{1/p}
-    =
-    \left(
-    \|u\|_{L^p(U)}^p
-    +
-    \|Du\|_{L^p(U)}^p
-    \right)^{1/p}.
     $$
     \end{example}
 
